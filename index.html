@@ -1058,6 +1058,24 @@
             font-size: 0.75rem;
             line-height: 1.55;
         }
+        .education-honor {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 0.7rem;
+            padding: 0.32rem 0.55rem;
+            border: 1px solid rgba(34, 211, 238, 0.24);
+            border-radius: 999px;
+            background: rgba(8, 145, 178, 0.1);
+            color: #a5f3fc;
+            font-size: 0.66rem;
+            font-weight: 750;
+        }
+        .education-honor::before {
+            content: '✦';
+            color: #22d3ee;
+            font-size: 0.62rem;
+        }
         .education-meta {
             display: flex;
             flex-wrap: wrap;
@@ -1340,6 +1358,7 @@
                         <article class="education-card">
                             <h4>B.Tech — Computer Science &amp; Engineering</h4>
                             <p>Drs. Kiran &amp; Pallavi Patel Global University (BITS-Vadodara), Vadodara, Gujarat</p>
+                            <span class="education-honor">Honors in Data Science</span>
                             <div class="education-meta">
                                 <span>2021–2025</span>
                                 <span>CGPA: 9.15</span>
