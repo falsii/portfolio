@@ -308,6 +308,405 @@
                 gap: 1.4rem;
             }
         }
+
+        /* Projects */
+        #projects {
+            position: relative;
+            overflow: hidden;
+        }
+        #projects::before {
+            content: '';
+            position: absolute;
+            right: -10rem;
+            top: 8rem;
+            width: 32rem;
+            height: 32rem;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(34, 211, 238, 0.08), transparent 70%);
+            pointer-events: none;
+        }
+        .projects-wrap {
+            position: relative;
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .projects-heading {
+            max-width: 44rem;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+        .projects-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding: 0.4rem 0.8rem;
+            border: 1px solid rgba(34, 211, 238, 0.28);
+            border-radius: 999px;
+            background: rgba(8, 145, 178, 0.1);
+            color: #67e8f9;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .projects-eyebrow::before {
+            content: '';
+            width: 0.45rem;
+            height: 0.45rem;
+            border-radius: 50%;
+            background: #22d3ee;
+            box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.1);
+        }
+        .projects-heading h2 {
+            margin: 0;
+            color: #f9fafb;
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+        .projects-heading p {
+            margin: 0.9rem auto 0;
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+        .project-group + .project-group {
+            margin-top: 4rem;
+        }
+        .project-group-heading {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.35rem;
+        }
+        .project-group-heading h3 {
+            flex: 0 0 auto;
+            margin: 0;
+            color: #e5e7eb;
+            font-size: 1.15rem;
+            font-weight: 750;
+        }
+        .project-group-heading span {
+            display: grid;
+            min-width: 1.7rem;
+            height: 1.7rem;
+            padding: 0 0.35rem;
+            place-items: center;
+            border: 1px solid rgba(75, 85, 99, 0.8);
+            border-radius: 999px;
+            color: #9ca3af;
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+        .project-group-heading::after {
+            content: '';
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(75, 85, 99, 0.75), transparent);
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
+        .portfolio-project-card {
+            display: flex;
+            min-height: 20rem;
+            flex-direction: column;
+            padding: 1.25rem;
+            border: 1px solid rgba(75, 85, 99, 0.82);
+            border-radius: 0.9rem;
+            background: linear-gradient(145deg, rgba(31, 41, 55, 0.98), rgba(17, 24, 39, 0.97));
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+            transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+        }
+        .portfolio-project-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(34, 211, 238, 0.42);
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.25);
+        }
+        .project-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .project-code-icon {
+            display: grid;
+            width: 2.5rem;
+            height: 2.5rem;
+            flex: 0 0 auto;
+            place-items: center;
+            border: 1px solid rgba(34, 211, 238, 0.18);
+            border-radius: 0.7rem;
+            background: rgba(8, 145, 178, 0.12);
+            color: #67e8f9;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.82rem;
+            font-weight: 800;
+        }
+        .project-category {
+            padding: 0.28rem 0.55rem;
+            border: 1px solid rgba(96, 165, 250, 0.26);
+            border-radius: 999px;
+            color: #bfdbfe;
+            font-size: 0.66rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .portfolio-project-card h4 {
+            margin: 1.15rem 0 0;
+            color: #f9fafb;
+            font-size: 1rem;
+            font-weight: 750;
+            line-height: 1.4;
+        }
+        .project-card-description {
+            display: -webkit-box;
+            margin: 0.55rem 0 0;
+            overflow: hidden;
+            color: #9ca3af;
+            font-size: 0.84rem;
+            line-height: 1.6;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+        }
+        .project-tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 1rem;
+        }
+        .project-tech-list span,
+        .modal-tech-list span {
+            padding: 0.32rem 0.55rem;
+            border: 1px solid rgba(75, 85, 99, 0.68);
+            border-radius: 0.42rem;
+            background: rgba(55, 65, 81, 0.7);
+            color: #dbeafe;
+            font-size: 0.68rem;
+            font-weight: 650;
+        }
+        .project-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(75, 85, 99, 0.58);
+        }
+        .project-type {
+            color: #9ca3af;
+            font-size: 0.72rem;
+        }
+        .project-type::before {
+            content: '';
+            display: inline-block;
+            width: 0.42rem;
+            height: 0.42rem;
+            margin-right: 0.45rem;
+            border-radius: 50%;
+            background: #60a5fa;
+            vertical-align: 0.05rem;
+        }
+        .project-details-button {
+            padding: 0.3rem 0;
+            border: 0;
+            background: transparent;
+            color: #67e8f9;
+            font-size: 0.75rem;
+            font-weight: 750;
+            cursor: pointer;
+        }
+        .project-details-button::after {
+            content: '↗';
+            margin-left: 0.35rem;
+        }
+        .project-details-button:hover,
+        .project-details-button:focus-visible {
+            color: #cffafe;
+        }
+        .project-details-button:focus-visible,
+        .project-modal-close:focus-visible,
+        .project-demo-link:focus-visible {
+            outline: 2px solid #22d3ee;
+            outline-offset: 3px;
+        }
+
+        /* Project details modal */
+        .project-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            display: grid;
+            padding: 1.25rem;
+            place-items: center;
+            background: rgba(3, 7, 18, 0.76);
+            backdrop-filter: blur(7px);
+        }
+        .project-modal[hidden] {
+            display: none;
+        }
+        .project-modal-panel {
+            width: min(52rem, 100%);
+            max-height: min(44rem, calc(100vh - 2.5rem));
+            overflow-y: auto;
+            border: 1px solid rgba(96, 165, 250, 0.28);
+            border-radius: 1rem;
+            background: #111827;
+            box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55);
+        }
+        .project-modal-header {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(75, 85, 99, 0.7);
+            background: rgba(17, 24, 39, 0.96);
+            backdrop-filter: blur(12px);
+        }
+        .project-modal-header h3 {
+            margin: 0;
+            color: #f9fafb;
+            font-size: 1.35rem;
+            font-weight: 800;
+            line-height: 1.35;
+        }
+        .project-modal-subtitle {
+            margin: 0.4rem 0 0;
+            color: #7dd3fc;
+            font-size: 0.78rem;
+            font-weight: 650;
+        }
+        .project-modal-close {
+            display: grid;
+            width: 2rem;
+            height: 2rem;
+            flex: 0 0 auto;
+            place-items: center;
+            border: 1px solid transparent;
+            border-radius: 0.5rem;
+            background: transparent;
+            color: #d1d5db;
+            font-size: 1.35rem;
+            cursor: pointer;
+        }
+        .project-modal-close:hover {
+            border-color: rgba(75, 85, 99, 0.8);
+            background: rgba(55, 65, 81, 0.65);
+        }
+        .project-modal-body {
+            padding: 1.5rem;
+        }
+        .modal-section + .modal-section {
+            margin-top: 1.5rem;
+        }
+        .modal-section h4 {
+            margin: 0 0 0.65rem;
+            color: #f3f4f6;
+            font-size: 0.8rem;
+            font-weight: 750;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .modal-section p {
+            margin: 0;
+            color: #cbd5e1;
+            font-size: 0.86rem;
+            line-height: 1.72;
+        }
+        .modal-section p + p {
+            margin-top: 0.75rem;
+        }
+        .modal-tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+        }
+        .modal-feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.6rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .modal-feature-grid li {
+            position: relative;
+            padding: 0.75rem 0.8rem 0.75rem 2rem;
+            border: 1px solid rgba(75, 85, 99, 0.48);
+            border-radius: 0.55rem;
+            background: rgba(31, 41, 55, 0.7);
+            color: #d1d5db;
+            font-size: 0.78rem;
+            line-height: 1.45;
+        }
+        .modal-feature-grid li::before {
+            content: '⌁';
+            position: absolute;
+            left: 0.8rem;
+            color: #22d3ee;
+            font-size: 1rem;
+            font-weight: 900;
+        }
+        .project-demo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin-top: 1.5rem;
+            padding: 0.65rem 0.9rem;
+            border-radius: 0.55rem;
+            background: #0891b2;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 750;
+            text-decoration: none;
+        }
+        .project-demo-link:hover {
+            background: #0e7490;
+        }
+        @media (max-width: 1023px) {
+            .project-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (max-width: 639px) {
+            .projects-heading {
+                margin-bottom: 2.25rem;
+                text-align: left;
+            }
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            .portfolio-project-card {
+                min-height: 18.5rem;
+            }
+            .project-modal {
+                align-items: end;
+                padding: 0;
+            }
+            .project-modal-panel {
+                width: 100%;
+                max-height: 92vh;
+                border-right: 0;
+                border-bottom: 0;
+                border-left: 0;
+                border-radius: 1rem 1rem 0 0;
+            }
+            .project-modal-header,
+            .project-modal-body {
+                padding: 1.2rem;
+            }
+            .modal-feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-900">
@@ -543,106 +942,219 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-20 bg-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold mb-8 text-gray-200">Projects</h2>
-            
-            <!-- Invoz -->
-            <div class="mb-8">
-                <h3 class="text-2xl font-semibold mb-2 text-gray-300">Invoz</h3>
-                <p class="text-gray-400 mb-1"><strong>Objective:</strong> Automated extraction of structured data from invoices and passbooks for accounting and record-keeping.</p>
-                <p class="text-gray-400 mb-1"><strong>Key Features:</strong> Extract structured information such as invoice number, date, amount, account details, transaction summaries. Supports multiple document formats including PDFs and images. Returns data in a clean JSON format for downstream processing.</p>
-                <p class="text-gray-400 mb-1"><strong>Technologies & Tools:</strong> OpenAI API, Python, OCR libraries (optional)</p>
-                <p class="text-gray-400"><strong>Impact:</strong> Reduced manual effort in bookkeeping and provides consistent, structured outputs for accounting software integration.</p>
+    <section id="projects" class="py-20 bg-gray-800" aria-labelledby="projects-title">
+        <div class="projects-wrap">
+            <header class="projects-heading">
+                <span class="projects-eyebrow">Projects</span>
+                <h2 id="projects-title">Selected Work</h2>
+                <p>AI products, intelligent automation, and machine learning systems designed around practical user and business needs.</p>
+            </header>
+
+            <div class="project-group">
+                <div class="project-group-heading">
+                    <h3>Professional Projects</h3>
+                    <span>7</span>
+                </div>
+                <div class="project-grid">
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">AI Automation</span>
+                        </div>
+                        <h4>Invoz</h4>
+                        <p class="project-card-description">Automated structured data extraction from invoices and passbooks for faster, more consistent accounting workflows.</p>
+                        <div class="project-tech-list">
+                            <span>OpenAI API</span><span>Python</span><span>OCR</span><span>JSON</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Professional</span>
+                            <button class="project-details-button" type="button" data-project="invoz">Details</button>
+                        </div>
+                    </article>
+
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">AI Application</span>
+                        </div>
+                        <h4>Moode AI</h4>
+                        <p class="project-card-description">Personalized mood summaries and journal insights that help users understand emotional trends and recurring themes.</p>
+                        <div class="project-tech-list">
+                            <span>OpenAI API</span><span>Python</span><span>Analytics</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Professional</span>
+                            <button class="project-details-button" type="button" data-project="moode">Details</button>
+                        </div>
+                    </article>
+
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">RAG Application</span>
+                        </div>
+                        <h4>Runsheet AI</h4>
+                        <p class="project-card-description">A multimodal RAG agent that understands PDFs and scanned documents to answer grounded user questions.</p>
+                        <div class="project-tech-list">
+                            <span>Python</span><span>Pytesseract</span><span>OpenAI</span><span>RAG</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Professional</span>
+                            <button class="project-details-button" type="button" data-project="runsheet">Details</button>
+                        </div>
+                    </article>
+
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">Voice AI</span>
+                        </div>
+                        <h4>Lala Audio</h4>
+                        <p class="project-card-description">Child-friendly text-to-speech generation with natural, expressive voice output for educational applications.</p>
+                        <div class="project-tech-list">
+                            <span>OpenAI TTS</span><span>Python</span><span>Audio</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Professional</span>
+                            <button class="project-details-button" type="button" data-project="lala">Details</button>
+                        </div>
+                    </article>
+
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">Data Automation</span>
+                        </div>
+                        <h4>Web Scraping Suite</h4>
+                        <p class="project-card-description">Automated product data collection across major retail sites for pricing, availability, and market analysis.</p>
+                        <div class="project-tech-list">
+                            <span>Python</span><span>Selenium</span><span>CSV</span><span>Databases</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Professional</span>
+                            <button class="project-details-button" type="button" data-project="scraping">Details</button>
+                        </div>
+                    </article>
+
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">AI SaaS</span>
+                        </div>
+                        <h4>Ubun.one</h4>
+                        <p class="project-card-description">A multilingual AI chat platform with voice responses, subscriptions, payments, and administrator controls.</p>
+                        <div class="project-tech-list">
+                            <span>OpenAI</span><span>ElevenLabs</span><span>FastAPI</span><span>Stripe</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Professional</span>
+                            <button class="project-details-button" type="button" data-project="ubun">Details</button>
+                        </div>
+                    </article>
+
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">AI Automation</span>
+                        </div>
+                        <h4>Referu.AI</h4>
+                        <p class="project-card-description">An AI assistant that pre-screens legal clients, matches expertise, and automates consultation scheduling.</p>
+                        <div class="project-tech-list">
+                            <span>LangChain</span><span>OpenAI</span><span>Zapier</span><span>CRM</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Professional</span>
+                            <button class="project-details-button" type="button" data-project="referu">Details</button>
+                        </div>
+                    </article>
+                </div>
             </div>
 
-            <!-- Moode AI -->
-            <div class="mb-8">
-                <h3 class="text-2xl font-semibold mb-2 text-gray-300">Moode AI</h3>
-                <p class="text-gray-400 mb-1"><strong>Objective:</strong> Generate personalized mood summaries and insights from user journals to improve mental health awareness.</p>
-                <p class="text-gray-400 mb-1"><strong>Key Features:</strong> Summarizes daily journals, analyzes past 7 days for mood trends, provides activity suggestions, detects recurring themes.</p>
-                <p class="text-gray-400 mb-1"><strong>Technologies & Tools:</strong> OpenAI API, Python, Data Analytics</p>
-                <p class="text-gray-400"><strong>Impact:</strong> Enables tracking of emotional health over time and provides personalized recommendations to improve well-being.</p>
+            <div class="project-group">
+                <div class="project-group-heading">
+                    <h3>Academic Projects</h3>
+                    <span>3</span>
+                </div>
+                <div class="project-grid">
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">ML Application</span>
+                        </div>
+                        <h4>Multiple Disease Detection</h4>
+                        <p class="project-card-description">An interactive prediction application for multiple diseases with approachable forms and confidence insights.</p>
+                        <div class="project-tech-list">
+                            <span>Streamlit</span><span>Scikit-learn</span><span>Pandas</span><span>Python</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Academic</span>
+                            <button class="project-details-button" type="button" data-project="disease">Details</button>
+                        </div>
+                    </article>
+
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">Computer Vision</span>
+                        </div>
+                        <h4>YOLO Object Detection</h4>
+                        <p class="project-card-description">Real-time object detection for images and videos with bounding boxes and confidence scores across 20+ classes.</p>
+                        <div class="project-tech-list">
+                            <span>YOLOv8</span><span>OpenCV</span><span>Python</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Academic</span>
+                            <button class="project-details-button" type="button" data-project="yolo">Details</button>
+                        </div>
+                    </article>
+
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">NLP Application</span>
+                        </div>
+                        <h4>PyTorch Chatbot</h4>
+                        <p class="project-card-description">An intent-aware customer service chatbot with an LSTM model and a smooth multi-intent conversation flow.</p>
+                        <div class="project-tech-list">
+                            <span>PyTorch</span><span>NLTK</span><span>Python</span><span>LSTM</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Academic</span>
+                            <button class="project-details-button" type="button" data-project="chatbot">Details</button>
+                        </div>
+                    </article>
+                </div>
             </div>
-
-            <!-- Runsheet AI -->
-            <div class="mb-8">
-                <h3 class="text-2xl font-semibold mb-2 text-gray-300">Runsheet AI</h3>
-                <p class="text-gray-400 mb-1"><strong>Objective:</strong> AI-powered multimodal RAG agent for document understanding and Q&A.</p>
-                <p class="text-gray-400 mb-1"><strong>Key Features:</strong> Upload PDFs/scanned docs, OCR using Pytesseract, multimodal embeddings with Nomic Embedder, chunking & retrieval, OpenAI API for accurate answers.</p>
-                <p class="text-gray-400 mb-1"><strong>Technologies & Tools:</strong> Python, Pytesseract, Nomic Embedder, OpenAI API, RAG framework</p>
-                <p class="text-gray-400"><strong>Impact:</strong> Streamlines access to complex document information and improves accuracy in Q&A scenarios.</p>
-            </div>
-
-            <!-- Lala Audio -->
-            <div class="mb-8">
-                <h3 class="text-2xl font-semibold mb-2 text-gray-300">Lala Audio</h3>
-                <p class="text-gray-400 mb-1"><strong>Objective:</strong> Text-to-speech solution for children-friendly apps, generating engaging audio content.</p>
-                <p class="text-gray-400 mb-1"><strong>Key Features:</strong> Converts text into natural, expressive audio with child-friendly voice modulation.</p>
-                <p class="text-gray-400 mb-1"><strong>Technologies & Tools:</strong> OpenAI TTS-1 HD model, Python</p>
-                <p class="text-gray-400"><strong>Impact:</strong> Improves accessibility and engagement in educational apps, making content interactive for children.</p>
-            </div>
-
-            <!-- Web Scraping -->
-            <div class="mb-8">
-                <h3 class="text-2xl font-semibold mb-2 text-gray-300">Web Scraping Projects</h3>
-                <p class="text-gray-400 mb-1"><strong>Objective:</strong> Automate extraction of product information from popular retail websites.</p>
-                <p class="text-gray-400 mb-1"><strong>Key Features:</strong> Scrapes product names, prices, availability, ratings, and reviews from The Perfume Shop, Sephora, JD Sports, Dunelm, IKEA, H&M. Stores data for analysis.</p>
-                <p class="text-gray-400 mb-1"><strong>Technologies & Tools:</strong> Python Selenium, CSV/Database</p>
-                <p class="text-gray-400"><strong>Impact:</strong> Enables competitive analysis for retail/e-commerce and provides insights on pricing trends and product popularity.</p>
-            </div>
-
-            <!-- Ubun.one -->
-            <div class="mb-8">
-                <h3 class="text-2xl font-semibold mb-2 text-gray-300">Ubun.one</h3>
-                <p class="text-gray-400 mb-1"><strong>Objective:</strong> ChatGPT-like multilingual chat application with subscription and admin management features.</p>
-                <p class="text-gray-400 mb-1"><strong>Key Features:</strong> Chatbot interface (English & German), audio responses via ElevenLabs TTS, admin portal to manage prompts, API keys, and users, Stripe subscription integration.</p>
-                <p class="text-gray-400 mb-1"><strong>Technologies & Tools:</strong> OpenAI API, ElevenLabs API, Python FastAPI, Stripe</p>
-                <p class="text-gray-400"><strong>Impact:</strong> Provides interactive AI chat experience with robust admin control for SaaS deployment.</p>
-            </div>
-
-            <!-- Referu.AI -->
-            <div class="mb-8">
-                <h3 class="text-2xl font-semibold mb-2 text-gray-300">Referu.AI</h3>
-                <p class="text-gray-400 mb-1"><strong>Objective:</strong> AI personal assistant for lawyers to pre-screen clients and schedule consultations.</p>
-                <p class="text-gray-400 mb-1"><strong>Key Features:</strong> Converses with users, matches cases with lawyer expertise, automates scheduling in CRM platforms like MyCase & Clio via Zapier, tracks recurring legal tasks.</p>
-                <p class="text-gray-400 mb-1"><strong>Technologies & Tools:</strong> LangChain, OpenAI API, Zapier</p>
-                <p class="text-gray-400"><strong>Impact:</strong> Reduces administrative workload for law firms, improves client-lawyer matching, and streamlines scheduling.</p>
-            </div>
-
-            <!-- Academic Projects Heading -->
-            <h3 class="text-3xl font-bold mb-6 mt-12 text-gray-200">Academic Projects</h3>
-
-            <!-- Streamlit Disease Detection -->
-            <div class="mb-8">
-                <h3 class="text-2xl font-semibold mb-2 text-gray-300">Streamlit Disease Detection</h3>
-                <p class="text-gray-400 mb-1"><strong>Objective:</strong> Interactive web application to predict multiple diseases based on user input.</p>
-                <p class="text-gray-400 mb-1"><strong>Key Features:</strong> Predicts diabetes, heart disease, and more using input parameters. Interactive forms and visualizations with confidence scores.</p>
-                <p class="text-gray-400 mb-1"><strong>Technologies & Tools:</strong> Streamlit, Scikit-learn, Pandas, Python</p>
-                <p class="text-gray-400 mb-1"><strong>Impact:</strong> Achieved 85%+ prediction accuracy, simplifies disease prediction for non-technical users.</p>
-                <a href="https://multipledisease-prediction-blfwgnvh2xvpbovzz5hqrc.streamlit.app/" class="text-blue-400 hover:underline">View Project</a>
-            </div>
-
-            <!-- YOLO Object Detection -->
-            <div class="mb-8">
-                <h3 class="text-2xl font-semibold mb-2 text-gray-300">YOLO Object Detection</h3>
-                <p class="text-gray-400 mb-1"><strong>Objective:</strong> Real-time object detection system for images and videos.</p>
-                <p class="text-gray-400 mb-1"><strong>Key Features:</strong> Detects 20+ object categories with bounding boxes and confidence scores, processes images and video streams in real-time.</p>
-                <p class="text-gray-400 mb-1"><strong>Technologies & Tools:</strong> YOLOv8, OpenCV, Python</p>
-                <p class="text-gray-400"><strong>Impact:</strong> Achieved 85% accuracy across multiple categories, suitable for surveillance, robotics, and monitoring systems.</p>
-            </div>
-
-            <!-- PyTorch Chatbot -->
-            <div class="mb-8">
-                <h3 class="text-2xl font-semibold mb-2 text-gray-300">PyTorch Chatbot</h3>
-                <p class="text-gray-400 mb-1"><strong>Objective:</strong> Intelligent customer service chatbot capable of understanding and responding to user queries.</p>
-                <p class="text-gray-400 mb-1"><strong>Key Features:</strong> LSTM-based intent recognition, smooth dialogue flow, handles multiple intents accurately.</p>
-                <p class="text-gray-400 mb-1"><strong>Technologies & Tools:</strong> PyTorch, NLTK, Python</p>
-                <p class="text-gray-400"><strong>Impact:</strong> Reached 95% intent classification accuracy, provides automated support and improves user experience.</p>
-            </div>
-
         </div>
     </section>
+
+    <div class="project-modal" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-modal-title" hidden>
+        <div class="project-modal-panel">
+            <header class="project-modal-header">
+                <div>
+                    <h3 id="project-modal-title"></h3>
+                    <p class="project-modal-subtitle" id="project-modal-subtitle"></p>
+                </div>
+                <button class="project-modal-close" type="button" aria-label="Close project details">&times;</button>
+            </header>
+            <div class="project-modal-body">
+                <div class="modal-section">
+                    <h4>Overview</h4>
+                    <p id="project-modal-objective"></p>
+                    <p id="project-modal-impact"></p>
+                </div>
+                <div class="modal-section">
+                    <h4>Technologies</h4>
+                    <div class="modal-tech-list" id="project-modal-technologies"></div>
+                </div>
+                <div class="modal-section">
+                    <h4>Key Features</h4>
+                    <ul class="modal-feature-grid" id="project-modal-features"></ul>
+                </div>
+                <a class="project-demo-link" id="project-modal-link" target="_blank" rel="noopener noreferrer" hidden>Open Live Demo ↗</a>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -728,6 +1240,182 @@
     </footer>
 
     <script>
+        const projectDetails = {
+            invoz: {
+                title: 'Invoz',
+                category: 'AI Automation',
+                type: 'Professional Project',
+                objective: 'Automate the extraction of structured information from invoices and passbooks for accounting and record-keeping.',
+                impact: 'Reduced manual bookkeeping effort while producing consistent, integration-ready output for accounting software.',
+                technologies: ['OpenAI API', 'Python', 'OCR', 'JSON'],
+                features: ['Invoice and passbook processing', 'PDF and image support', 'Structured field extraction', 'Clean JSON output', 'Transaction summary capture', 'Accounting workflow integration']
+            },
+            moode: {
+                title: 'Moode AI',
+                category: 'AI Application',
+                type: 'Professional Project',
+                objective: 'Generate personalized mood summaries and insights from journal entries to improve users’ emotional awareness.',
+                impact: 'Makes emotional patterns easier to understand and turns daily reflection into practical, personalized recommendations.',
+                technologies: ['OpenAI API', 'Python', 'Data Analytics'],
+                features: ['Daily journal summaries', 'Seven-day mood trends', 'Personalized activity suggestions', 'Recurring theme detection', 'Historical mood tracking', 'Natural-language insights']
+            },
+            runsheet: {
+                title: 'Runsheet AI',
+                category: 'RAG Application',
+                type: 'Professional Project',
+                objective: 'Build a multimodal retrieval agent that can understand PDFs and scanned documents and answer grounded questions.',
+                impact: 'Streamlines access to complex document information while improving the relevance and accuracy of document Q&A.',
+                technologies: ['Python', 'Pytesseract', 'Nomic Embedder', 'OpenAI API', 'RAG'],
+                features: ['PDF and scanned document upload', 'OCR text extraction', 'Multimodal embeddings', 'Document chunking', 'Semantic retrieval', 'Grounded question answering']
+            },
+            lala: {
+                title: 'Lala Audio',
+                category: 'Voice AI',
+                type: 'Professional Project',
+                objective: 'Create expressive, child-friendly audio from text for educational and engagement-focused applications.',
+                impact: 'Improves accessibility and makes learning content more interactive and engaging for children.',
+                technologies: ['OpenAI TTS-1 HD', 'Python', 'Audio Processing'],
+                features: ['Natural text-to-speech', 'Child-friendly voice style', 'Expressive audio output', 'Application-ready generation']
+            },
+            scraping: {
+                title: 'Web Scraping Suite',
+                category: 'Data Automation',
+                type: 'Professional Project',
+                objective: 'Automate the collection of product information from major retail websites for structured analysis.',
+                impact: 'Supports competitive research with consistent datasets for pricing trends, availability, ratings, and product popularity.',
+                technologies: ['Python', 'Selenium', 'CSV', 'Databases'],
+                features: ['Multi-site product extraction', 'Price and availability tracking', 'Ratings and review capture', 'Automated browser workflows', 'Structured data storage', 'Retail trend analysis']
+            },
+            ubun: {
+                title: 'Ubun.one',
+                category: 'AI SaaS',
+                type: 'Professional Project',
+                objective: 'Deliver a multilingual ChatGPT-style platform with voice responses, subscriptions, and administrator controls.',
+                impact: 'Provides a complete conversational AI experience with the operational tools required for a subscription-based SaaS product.',
+                technologies: ['OpenAI API', 'ElevenLabs API', 'FastAPI', 'Stripe'],
+                features: ['English and German chat', 'ElevenLabs voice responses', 'Prompt and API key management', 'User administration', 'Stripe subscriptions', 'SaaS-ready backend APIs']
+            },
+            referu: {
+                title: 'Referu.AI',
+                category: 'AI Automation',
+                type: 'Professional Project',
+                objective: 'Help law firms pre-screen prospective clients, match cases to expertise, and automate consultation scheduling.',
+                impact: 'Reduces administrative workload, improves client-lawyer matching, and makes consultation workflows more efficient.',
+                technologies: ['LangChain', 'OpenAI API', 'Zapier', 'CRM Integrations'],
+                features: ['Conversational client intake', 'Case and expertise matching', 'Automated CRM scheduling', 'MyCase and Clio workflows', 'Recurring task tracking', 'Legal operations automation']
+            },
+            disease: {
+                title: 'Multiple Disease Detection',
+                category: 'ML Application',
+                type: 'Academic Project',
+                objective: 'Create an approachable web application that predicts multiple diseases from user-provided health parameters.',
+                impact: 'Achieved 85%+ prediction accuracy while making machine-learning insights accessible to non-technical users.',
+                technologies: ['Streamlit', 'Scikit-learn', 'Pandas', 'Python'],
+                features: ['Multiple disease prediction', 'Interactive health forms', 'Confidence score display', 'Data preprocessing', 'Trained classification models', 'Responsive Streamlit interface'],
+                link: 'https://multipledisease-prediction-blfwgnvh2xvpbovzz5hqrc.streamlit.app/'
+            },
+            yolo: {
+                title: 'YOLO Object Detection',
+                category: 'Computer Vision',
+                type: 'Academic Project',
+                objective: 'Build a real-time object detection system for images and video streams.',
+                impact: 'Reached 85% accuracy across 20+ object categories for potential surveillance, robotics, and monitoring use cases.',
+                technologies: ['YOLOv8', 'OpenCV', 'Python'],
+                features: ['Real-time object detection', '20+ supported categories', 'Bounding box visualization', 'Confidence scoring', 'Image processing', 'Video stream support']
+            },
+            chatbot: {
+                title: 'PyTorch Chatbot',
+                category: 'NLP Application',
+                type: 'Academic Project',
+                objective: 'Develop an intelligent customer-service chatbot that understands user intents and responds naturally.',
+                impact: 'Reached 95% intent classification accuracy and demonstrated a reliable automated support experience.',
+                technologies: ['PyTorch', 'NLTK', 'Python', 'LSTM'],
+                features: ['LSTM intent recognition', 'Multi-intent handling', 'Natural-language preprocessing', 'Smooth dialogue flow', 'Automated response selection', '95% classification accuracy']
+            }
+        };
+
+        const projectModal = document.getElementById('project-modal');
+        const modalCloseButton = projectModal.querySelector('.project-modal-close');
+        const modalTitle = document.getElementById('project-modal-title');
+        const modalSubtitle = document.getElementById('project-modal-subtitle');
+        const modalObjective = document.getElementById('project-modal-objective');
+        const modalImpact = document.getElementById('project-modal-impact');
+        const modalTechnologies = document.getElementById('project-modal-technologies');
+        const modalFeatures = document.getElementById('project-modal-features');
+        const modalLink = document.getElementById('project-modal-link');
+        let activeProjectTrigger = null;
+
+        function populateItems(container, items, elementName) {
+            container.replaceChildren(...items.map(item => {
+                const element = document.createElement(elementName);
+                element.textContent = item;
+                return element;
+            }));
+        }
+
+        function openProjectModal(projectId, trigger) {
+            const project = projectDetails[projectId];
+            if (!project) return;
+
+            activeProjectTrigger = trigger;
+            modalTitle.textContent = project.title;
+            modalSubtitle.textContent = `${project.category} · ${project.type}`;
+            modalObjective.textContent = `Objective: ${project.objective}`;
+            modalImpact.textContent = `Impact: ${project.impact}`;
+            populateItems(modalTechnologies, project.technologies, 'span');
+            populateItems(modalFeatures, project.features, 'li');
+
+            modalLink.hidden = !project.link;
+            if (project.link) {
+                modalLink.href = project.link;
+            } else {
+                modalLink.removeAttribute('href');
+            }
+
+            projectModal.hidden = false;
+            document.body.style.overflow = 'hidden';
+            modalCloseButton.focus();
+        }
+
+        function closeProjectModal() {
+            if (projectModal.hidden) return;
+            projectModal.hidden = true;
+            document.body.style.overflow = '';
+            activeProjectTrigger?.focus();
+        }
+
+        document.querySelectorAll('.project-details-button').forEach(button => {
+            button.addEventListener('click', () => openProjectModal(button.dataset.project, button));
+        });
+
+        modalCloseButton.addEventListener('click', closeProjectModal);
+        projectModal.addEventListener('click', event => {
+            if (event.target === projectModal) closeProjectModal();
+        });
+
+        document.addEventListener('keydown', event => {
+            if (projectModal.hidden) return;
+
+            if (event.key === 'Escape') {
+                closeProjectModal();
+                return;
+            }
+
+            if (event.key === 'Tab') {
+                const focusableElements = [...projectModal.querySelectorAll('button:not([hidden]), a:not([hidden])')];
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+
+                if (event.shiftKey && document.activeElement === firstElement) {
+                    event.preventDefault();
+                    lastElement.focus();
+                } else if (!event.shiftKey && document.activeElement === lastElement) {
+                    event.preventDefault();
+                    firstElement.focus();
+                }
+            }
+        });
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
