@@ -1,9 +1,10 @@
 {
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs"
   },
   "dependencies": {
-    "@vercel/edge": "^0.1.2"
+    "@vercel/functions": "^3.7.6"
   }
 }
