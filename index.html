@@ -788,25 +788,115 @@
         /* Hero */
         #home.hero-section {
             position: relative;
+            display: grid;
             min-height: calc(100vh - 4rem);
+            min-height: calc(100svh - 4rem);
+            place-items: center;
             overflow: hidden;
             background-color: #111827;
             background-image: none;
+            isolation: isolate;
         }
         #home.hero-section::before {
             inset: 0;
+            z-index: 0;
             width: 100%;
             height: 100%;
             background:
-                radial-gradient(circle at 50% 34%, rgba(8, 145, 178, 0.15), transparent 34%),
                 linear-gradient(rgba(96, 165, 250, 0.035) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(96, 165, 250, 0.035) 1px, transparent 1px);
-            background-size: auto, 42px 42px, 42px 42px;
+            background-size: 42px 42px, 42px 42px;
+            background-position: 0 0, 0 0;
+            animation: heroGridDrift 18s linear infinite;
+        }
+        #home.hero-section::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 2;
+            width: min(50rem, 80vw);
+            height: min(50rem, 80vw);
+            border-radius: 50%;
+            background: conic-gradient(
+                from 90deg,
+                rgba(34, 211, 238, 0.09),
+                rgba(59, 130, 246, 0.03),
+                rgba(14, 116, 144, 0.1),
+                rgba(34, 211, 238, 0.09)
+            );
+            filter: blur(45px);
+            opacity: 0.8;
+            animation: heroAurora 14s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+        .hero-background {
+            position: absolute !important;
+            inset: 0;
+            z-index: 2 !important;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, rgba(8, 145, 178, 0.12), transparent 36%);
+            pointer-events: none;
+        }
+        .hero-neural-canvas {
+            position: absolute !important;
+            inset: 0;
+            z-index: 1 !important;
+            display: block;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(8px);
+            opacity: 0.35;
+        }
+        .hero-orb-one {
+            top: 12%;
+            left: 13%;
+            width: 14rem;
+            height: 14rem;
+            background: radial-gradient(circle, rgba(34, 211, 238, 0.3), transparent 68%);
+            animation: heroOrbOne 11s ease-in-out infinite alternate;
+        }
+        .hero-orb-two {
+            right: 10%;
+            bottom: 8%;
+            width: 18rem;
+            height: 18rem;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.23), transparent 68%);
+            animation: heroOrbTwo 13s ease-in-out infinite alternate;
+        }
+        .hero-orb-three {
+            right: 28%;
+            top: 6%;
+            width: 10rem;
+            height: 10rem;
+            background: radial-gradient(circle, rgba(52, 211, 153, 0.13), transparent 68%);
+            animation: heroOrbThree 9s ease-in-out infinite alternate;
+        }
+        .hero-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: min(48rem, 72vw);
+            height: min(48rem, 72vw);
+            transform: translate(-50%, -50%);
+            border: 1px solid rgba(34, 211, 238, 0.07);
+            border-radius: 50%;
+            box-shadow:
+                0 0 0 5rem rgba(34, 211, 238, 0.015),
+                0 0 0 10rem rgba(59, 130, 246, 0.012);
+            animation: heroRingPulse 8s ease-in-out infinite;
         }
         .hero-content {
+            position: relative;
+            z-index: 3;
             width: min(58rem, calc(100% - 2rem));
             margin: 0 auto;
-            padding: 6rem 0 3rem;
+            padding: clamp(2.5rem, 6vh, 4.5rem) 0;
             text-align: center;
         }
         .hero-kicker {
@@ -937,6 +1027,33 @@
             border-radius: 50%;
             color: #9ca3af;
             text-decoration: none;
+            animation: heroScrollBounce 2.6s ease-in-out infinite;
+        }
+        @keyframes heroGridDrift {
+            to {
+                background-position: 42px 42px, 42px 42px;
+            }
+        }
+        @keyframes heroAurora {
+            0% { transform: translate3d(-57%, -54%, 0) scale(0.92) rotate(0deg); }
+            100% { transform: translate3d(-42%, -45%, 0) scale(1.08) rotate(18deg); }
+        }
+        @keyframes heroOrbOne {
+            to { transform: translate3d(5rem, 3rem, 0) scale(1.18); }
+        }
+        @keyframes heroOrbTwo {
+            to { transform: translate3d(-5rem, -2.5rem, 0) scale(0.88); }
+        }
+        @keyframes heroOrbThree {
+            to { transform: translate3d(-2rem, 4rem, 0) scale(1.22); }
+        }
+        @keyframes heroRingPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(0.96); opacity: 0.45; }
+            50% { transform: translate(-50%, -50%) scale(1.04); opacity: 0.8; }
+        }
+        @keyframes heroScrollBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(0.35rem); }
         }
 
         /* About */
@@ -1234,7 +1351,7 @@
                 text-align: center;
             }
             .hero-content {
-                padding-top: 4.5rem;
+                padding: 3rem 0;
             }
             .section-heading-centered {
                 margin-bottom: 2rem;
@@ -1254,6 +1371,15 @@
             }
             .hero-actions .site-button {
                 flex: 1 1 9rem;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #home.hero-section::before,
+            #home.hero-section::after,
+            .hero-orb,
+            .hero-ring,
+            .hero-scroll {
+                animation: none;
             }
         }
     </style>
@@ -1277,6 +1403,13 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero-section">
+        <canvas class="hero-neural-canvas" id="hero-neural-canvas" aria-hidden="true"></canvas>
+        <div class="hero-background" aria-hidden="true">
+            <span class="hero-orb hero-orb-one"></span>
+            <span class="hero-orb hero-orb-two"></span>
+            <span class="hero-orb hero-orb-three"></span>
+            <span class="hero-ring"></span>
+        </div>
         <div class="hero-content">
             <span class="hero-kicker">Available for impactful AI work</span>
             <h1>Falsi Jasani</h1>
@@ -1822,6 +1955,354 @@
     </footer>
 
     <script>
+        // Centralized neural-network settings for easy visual tuning.
+        const neuralNetworkConfig = Object.freeze({
+            nodeCountMin: 35,
+            nodeCountMax: 50,
+            densityArea: 26000,
+            nodeSizeMin: 2,
+            nodeSizeMax: 5,
+            nodeColor: '#3DD9FF',
+            nodeRgb: '61, 217, 255',
+            nodeOpacityMin: 0.1,
+            nodeOpacityMax: 0.2,
+            lineOpacity: 0.045,
+            lineCursorBoost: 0.035,
+            lineWidth: 1,
+            connectionDistance: 165,
+            movementRange: 20,
+            driftRange: 14,
+            cursorMovementRange: 6,
+            durationMin: 12000,
+            durationMax: 25000,
+            cursorRadius: 180,
+            cursorEase: 0.035,
+            connectionFadeMin: 12000,
+            connectionFadeMax: 24000,
+            maxDevicePixelRatio: 2
+        });
+
+        class HeroNeuralNetwork {
+            constructor(canvas, container, config) {
+                this.canvas = canvas;
+                this.container = container;
+                this.config = config;
+                this.context = canvas.getContext('2d', { alpha: true });
+                this.nodes = [];
+                this.width = 0;
+                this.height = 0;
+                this.frameId = null;
+                this.cursor = { x: 0, y: 0, active: false };
+                this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+                this.animate = this.animate.bind(this);
+                this.resize = this.resize.bind(this);
+                this.handlePointerMove = this.handlePointerMove.bind(this);
+                this.handlePointerLeave = this.handlePointerLeave.bind(this);
+                this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
+                this.handleMotionPreference = this.handleMotionPreference.bind(this);
+            }
+
+            init() {
+                if (!this.context) return;
+
+                this.container.addEventListener('pointermove', this.handlePointerMove, { passive: true });
+                this.container.addEventListener('pointerleave', this.handlePointerLeave);
+                document.addEventListener('visibilitychange', this.handleVisibilityChange);
+                this.reducedMotion.addEventListener('change', this.handleMotionPreference);
+
+                if ('ResizeObserver' in window) {
+                    this.resizeObserver = new ResizeObserver(this.resize);
+                    this.resizeObserver.observe(this.container);
+                } else {
+                    window.addEventListener('resize', this.resize, { passive: true });
+                }
+
+                this.resize();
+            }
+
+            randomBetween(minimum, maximum) {
+                return minimum + Math.random() * (maximum - minimum);
+            }
+
+            clamp(value, minimum, maximum) {
+                return Math.min(maximum, Math.max(minimum, value));
+            }
+
+            resize() {
+                const bounds = this.container.getBoundingClientRect();
+                this.width = Math.max(1, Math.round(bounds.width));
+                this.height = Math.max(1, Math.round(bounds.height));
+
+                const pixelRatio = Math.min(
+                    window.devicePixelRatio || 1,
+                    this.config.maxDevicePixelRatio
+                );
+
+                this.canvas.width = Math.round(this.width * pixelRatio);
+                this.canvas.height = Math.round(this.height * pixelRatio);
+                this.context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+                this.createNodes();
+
+                if (this.reducedMotion.matches) {
+                    this.stop();
+                    this.draw(0, false);
+                } else if (!document.hidden) {
+                    this.start();
+                }
+            }
+
+            createNodes() {
+                const desiredCount = Math.round(
+                    (this.width * this.height) / this.config.densityArea
+                );
+                const nodeCount = this.clamp(
+                    desiredCount,
+                    this.config.nodeCountMin,
+                    this.config.nodeCountMax
+                );
+                const safeMargin = this.config.movementRange;
+
+                this.nodes = Array.from({ length: nodeCount }, (_, index) => ({
+                    index,
+                    baseX: this.randomBetween(safeMargin, Math.max(safeMargin, this.width - safeMargin)),
+                    baseY: this.randomBetween(safeMargin, Math.max(safeMargin, this.height - safeMargin)),
+                    x: 0,
+                    y: 0,
+                    size: this.randomBetween(this.config.nodeSizeMin, this.config.nodeSizeMax),
+                    opacity: this.randomBetween(
+                        this.config.nodeOpacityMin,
+                        this.config.nodeOpacityMax
+                    ),
+                    driftX: this.randomBetween(6, this.config.driftRange),
+                    driftY: this.randomBetween(6, this.config.driftRange),
+                    phaseX: this.randomBetween(0, Math.PI * 2),
+                    phaseY: this.randomBetween(0, Math.PI * 2),
+                    durationX: this.randomBetween(
+                        this.config.durationMin,
+                        this.config.durationMax
+                    ),
+                    durationY: this.randomBetween(
+                        this.config.durationMin,
+                        this.config.durationMax
+                    ),
+                    cursorX: 0,
+                    cursorY: 0
+                }));
+            }
+
+            handlePointerMove(event) {
+                if (this.reducedMotion.matches) return;
+
+                const bounds = this.container.getBoundingClientRect();
+                this.cursor.x = event.clientX - bounds.left;
+                this.cursor.y = event.clientY - bounds.top;
+                this.cursor.active = true;
+            }
+
+            handlePointerLeave() {
+                this.cursor.active = false;
+            }
+
+            handleVisibilityChange() {
+                if (document.hidden) {
+                    this.stop();
+                } else if (!this.reducedMotion.matches) {
+                    this.start();
+                }
+            }
+
+            handleMotionPreference(event) {
+                if (event.matches) {
+                    this.stop();
+                    this.cursor.active = false;
+                    this.nodes.forEach(node => {
+                        node.cursorX = 0;
+                        node.cursorY = 0;
+                    });
+                    this.draw(0, false);
+                } else if (!document.hidden) {
+                    this.start();
+                }
+            }
+
+            start() {
+                if (this.frameId !== null || document.hidden || this.reducedMotion.matches) return;
+                this.frameId = requestAnimationFrame(this.animate);
+            }
+
+            stop() {
+                if (this.frameId === null) return;
+                cancelAnimationFrame(this.frameId);
+                this.frameId = null;
+            }
+
+            animate(timestamp) {
+                this.frameId = null;
+                this.draw(timestamp, true);
+                this.start();
+            }
+
+            updateNodes(timestamp, animated) {
+                const twoPi = Math.PI * 2;
+
+                this.nodes.forEach(node => {
+                    const driftX = animated
+                        ? Math.sin((timestamp / node.durationX) * twoPi + node.phaseX) * node.driftX
+                        : Math.sin(node.phaseX) * node.driftX;
+                    const driftY = animated
+                        ? Math.cos((timestamp / node.durationY) * twoPi + node.phaseY) * node.driftY
+                        : Math.cos(node.phaseY) * node.driftY;
+
+                    const naturalX = node.baseX + driftX;
+                    const naturalY = node.baseY + driftY;
+                    let targetCursorX = 0;
+                    let targetCursorY = 0;
+
+                    if (animated && this.cursor.active) {
+                        const deltaX = this.cursor.x - naturalX;
+                        const deltaY = this.cursor.y - naturalY;
+                        const distance = Math.hypot(deltaX, deltaY);
+
+                        if (distance > 0 && distance < this.config.cursorRadius) {
+                            const influence = 1 - distance / this.config.cursorRadius;
+                            const pull = this.config.cursorMovementRange * influence;
+                            targetCursorX = (deltaX / distance) * pull;
+                            targetCursorY = (deltaY / distance) * pull;
+                        }
+                    }
+
+                    node.cursorX += (targetCursorX - node.cursorX) * this.config.cursorEase;
+                    node.cursorY += (targetCursorY - node.cursorY) * this.config.cursorEase;
+                    node.x = naturalX + node.cursorX;
+                    node.y = naturalY + node.cursorY;
+                });
+            }
+
+            buildSpatialGrid() {
+                const grid = new Map();
+                const cellSize = this.config.connectionDistance;
+
+                this.nodes.forEach((node, index) => {
+                    const column = Math.floor(node.x / cellSize);
+                    const row = Math.floor(node.y / cellSize);
+                    const key = `${column},${row}`;
+
+                    if (!grid.has(key)) grid.set(key, []);
+                    grid.get(key).push(index);
+                });
+
+                return grid;
+            }
+
+            connectionLifecycle(firstIndex, secondIndex, timestamp) {
+                const seed = (firstIndex * 37 + secondIndex * 61) % 101;
+                const duration = this.config.connectionFadeMin +
+                    (seed / 100) *
+                    (this.config.connectionFadeMax - this.config.connectionFadeMin);
+                const phase = (seed / 100) * Math.PI * 2;
+                const wave = (Math.sin((timestamp / duration) * Math.PI * 2 + phase) + 1) / 2;
+
+                // Long, smooth cycles allow a line to fade and naturally reconnect.
+                return 0.12 + wave * 0.88;
+            }
+
+            drawConnections(timestamp, animated) {
+                const grid = this.buildSpatialGrid();
+                const cellSize = this.config.connectionDistance;
+                const checkedPairs = new Set();
+                const context = this.context;
+
+                context.save();
+                context.lineWidth = this.config.lineWidth;
+                context.lineCap = 'round';
+
+                this.nodes.forEach((node, firstIndex) => {
+                    const column = Math.floor(node.x / cellSize);
+                    const row = Math.floor(node.y / cellSize);
+
+                    for (let columnOffset = -1; columnOffset <= 1; columnOffset += 1) {
+                        for (let rowOffset = -1; rowOffset <= 1; rowOffset += 1) {
+                            const nearby = grid.get(`${column + columnOffset},${row + rowOffset}`);
+                            if (!nearby) continue;
+
+                            nearby.forEach(secondIndex => {
+                                if (secondIndex <= firstIndex) return;
+
+                                const pairKey = `${firstIndex}-${secondIndex}`;
+                                if (checkedPairs.has(pairKey)) return;
+                                checkedPairs.add(pairKey);
+
+                                const secondNode = this.nodes[secondIndex];
+                                const deltaX = secondNode.x - node.x;
+                                const deltaY = secondNode.y - node.y;
+                                const distance = Math.hypot(deltaX, deltaY);
+                                if (distance >= this.config.connectionDistance) return;
+
+                                const distanceFade = 1 - distance / this.config.connectionDistance;
+                                const lifecycle = animated
+                                    ? this.connectionLifecycle(firstIndex, secondIndex, timestamp)
+                                    : 0.65;
+                                let opacity = this.config.lineOpacity * distanceFade * lifecycle;
+
+                                if (this.cursor.active && animated) {
+                                    const midpointX = (node.x + secondNode.x) / 2;
+                                    const midpointY = (node.y + secondNode.y) / 2;
+                                    const cursorDistance = Math.hypot(
+                                        this.cursor.x - midpointX,
+                                        this.cursor.y - midpointY
+                                    );
+
+                                    if (cursorDistance < this.config.cursorRadius) {
+                                        opacity += this.config.lineCursorBoost *
+                                            (1 - cursorDistance / this.config.cursorRadius) *
+                                            distanceFade;
+                                    }
+                                }
+
+                                context.strokeStyle = `rgba(${this.config.nodeRgb}, ${opacity})`;
+                                context.beginPath();
+                                context.moveTo(node.x, node.y);
+                                context.lineTo(secondNode.x, secondNode.y);
+                                context.stroke();
+                            });
+                        }
+                    }
+                });
+
+                context.restore();
+            }
+
+            drawNodes() {
+                const context = this.context;
+                context.save();
+                context.shadowColor = this.config.nodeColor;
+                context.shadowBlur = 5;
+
+                this.nodes.forEach(node => {
+                    context.fillStyle = `rgba(${this.config.nodeRgb}, ${node.opacity})`;
+                    context.beginPath();
+                    context.arc(node.x, node.y, node.size / 2, 0, Math.PI * 2);
+                    context.fill();
+                });
+
+                context.restore();
+            }
+
+            draw(timestamp, animated) {
+                this.context.clearRect(0, 0, this.width, this.height);
+                this.updateNodes(timestamp, animated);
+                this.drawConnections(timestamp, animated);
+                this.drawNodes();
+            }
+        }
+
+        const heroSection = document.getElementById('home');
+        const neuralCanvas = document.getElementById('hero-neural-canvas');
+        if (heroSection && neuralCanvas) {
+            new HeroNeuralNetwork(neuralCanvas, heroSection, neuralNetworkConfig).init();
+        }
+
         const navToggle = document.querySelector('.nav-toggle');
         const navLinks = document.getElementById('primary-navigation');
 
