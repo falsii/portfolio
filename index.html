@@ -1623,9 +1623,57 @@
             <div class="project-group">
                 <div class="project-group-heading">
                     <h3>Professional Projects</h3>
-                    <span>7</span>
+                    <span>10</span>
                 </div>
                 <div class="project-grid">
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">Backend API</span>
+                        </div>
+                        <h4>Thrive Tracker</h4>
+                        <p class="project-card-description">A production-grade wellness API for goals, moods, journals, vision boards, subscriptions, and intelligent notifications.</p>
+                        <div class="project-tech-list">
+                            <span>FastAPI</span><span>PostgreSQL</span><span>SQLAlchemy</span><span>Firebase</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Professional</span>
+                            <button class="project-details-button" type="button" data-project="thrive">Details</button>
+                        </div>
+                    </article>
+
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">Platform Backend</span>
+                        </div>
+                        <h4>Wild-Bite</h4>
+                        <p class="project-card-description">A scalable food delivery and services backend with multi-role workflows, payments, wallets, subscriptions, and localization.</p>
+                        <div class="project-tech-list">
+                            <span>FastAPI</span><span>PostgreSQL</span><span>Stripe</span><span>Redis</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Professional</span>
+                            <button class="project-details-button" type="button" data-project="wildbite">Details</button>
+                        </div>
+                    </article>
+
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">AI Wellness</span>
+                        </div>
+                        <h4>Healthy Hustle</h4>
+                        <p class="project-card-description">An AI fitness platform generating personalized meal plans, workouts, grocery lists, images, chat, and real-time voice coaching.</p>
+                        <div class="project-tech-list">
+                            <span>OpenAI</span><span>FastAPI</span><span>LiveKit</span><span>MongoDB</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Professional</span>
+                            <button class="project-details-button" type="button" data-project="healthyhustle">Details</button>
+                        </div>
+                    </article>
+
                     <article class="portfolio-project-card">
                         <div class="project-card-top">
                             <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
@@ -3122,6 +3170,33 @@
         });
 
         const projectDetails = {
+            thrive: {
+                title: 'Thrive Tracker',
+                category: 'Wellness Tracking Backend API',
+                type: 'Professional Project',
+                objective: 'Power a mobile wellness application with secure, production-grade APIs for goal management, mood tracking, journaling, vision boards, subscriptions, and administration.',
+                impact: 'Delivered a reliable wellness platform with intelligent milestone and goal reminders, robust access controls, operational analytics, and mobile subscription support.',
+                technologies: ['Python', 'FastAPI', 'PostgreSQL', 'SQLAlchemy', 'Firebase', 'APScheduler', 'JWT'],
+                features: ['Goal, mood, journal, and vision board APIs', 'JWT refresh tokens and token blacklisting', 'OTP-based account verification', 'Admin CRUD and analytics dashboard', 'Milestone alerts and scheduled goal reminders', 'Request throttling, caching, logging, and API versioning', 'Apple and Google in-app subscription verification']
+            },
+            wildbite: {
+                title: 'Wild-Bite',
+                category: 'Food Delivery & Services Platform',
+                type: 'Professional Project',
+                objective: 'Build a scalable backend for a bilingual marketplace serving customers, vendors, service providers, and administrators through distinct role-based workflows.',
+                impact: 'Unified ordering, service delivery, payments, wallets, notifications, subscriptions, and administration within a maintainable, deployment-ready architecture.',
+                technologies: ['Python', 'FastAPI', 'Async PostgreSQL', 'Stripe', 'Redis', 'Firebase', 'Alembic', 'Docker'],
+                features: ['Four role-specific user experiences', 'Stripe payments and wallet system', 'OTP authentication and Firebase notifications', 'Apple and Google subscription verification', 'Layered domain-driven architecture', 'Pydantic validation and Alembic migrations', 'Custom English and Spanish localization']
+            },
+            healthyhustle: {
+                title: 'Healthy Hustle',
+                category: 'AI Fitness & Nutrition Platform',
+                type: 'Professional Project',
+                objective: 'Generate personalized weekly nutrition and fitness programs while providing users with conversational and real-time voice coaching.',
+                impact: 'Scaled personalized AI generation to more than 100 concurrent users with resilient batch processing, automated retries, webhook workflows, and persistent coaching sessions.',
+                technologies: ['Python', 'FastAPI', 'OpenAI SDK', 'Pydantic', 'MongoDB', 'LiveKit', 'Docker', 'Infisical'],
+                features: ['Weekly meal plans and workout routines', 'Personalized grocery lists', 'AI-generated fitness and meal imagery', 'OpenAI structured outputs', 'Batch API processing for 100+ concurrent users', 'Automatic retries and webhook integration', 'AI fitness coach chatbot', 'Real-time voice assistant with persistent sessions']
+            },
             invoz: {
                 title: 'Invoz',
                 category: 'AI Automation',
