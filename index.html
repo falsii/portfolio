@@ -793,7 +793,7 @@
             min-height: calc(100svh - 4rem);
             place-items: center;
             overflow: hidden;
-            background-color: #111827;
+            background-color: #0B1220;
             background-image: none;
             isolation: isolate;
         }
@@ -812,22 +812,14 @@
         #home.hero-section::after {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
+            inset: 0;
             z-index: 2;
-            width: min(50rem, 80vw);
-            height: min(50rem, 80vw);
-            border-radius: 50%;
-            background: conic-gradient(
-                from 90deg,
-                rgba(34, 211, 238, 0.09),
-                rgba(59, 130, 246, 0.03),
-                rgba(14, 116, 144, 0.1),
-                rgba(34, 211, 238, 0.09)
+            background: radial-gradient(
+                circle at 50% 48%,
+                transparent 25%,
+                rgba(11, 18, 32, 0.08) 58%,
+                rgba(11, 18, 32, 0.48) 100%
             );
-            filter: blur(45px);
-            opacity: 0.8;
-            animation: heroAurora 14s ease-in-out infinite alternate;
             pointer-events: none;
         }
         .hero-background {
@@ -835,7 +827,7 @@
             inset: 0;
             z-index: 2 !important;
             overflow: hidden;
-            background: radial-gradient(circle at 50% 50%, rgba(8, 145, 178, 0.12), transparent 36%);
+            background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.035), transparent 38%);
             pointer-events: none;
         }
         .hero-neural-canvas {
@@ -846,50 +838,6 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-        }
-        .hero-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(8px);
-            opacity: 0.35;
-        }
-        .hero-orb-one {
-            top: 12%;
-            left: 13%;
-            width: 14rem;
-            height: 14rem;
-            background: radial-gradient(circle, rgba(34, 211, 238, 0.3), transparent 68%);
-            animation: heroOrbOne 11s ease-in-out infinite alternate;
-        }
-        .hero-orb-two {
-            right: 10%;
-            bottom: 8%;
-            width: 18rem;
-            height: 18rem;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.23), transparent 68%);
-            animation: heroOrbTwo 13s ease-in-out infinite alternate;
-        }
-        .hero-orb-three {
-            right: 28%;
-            top: 6%;
-            width: 10rem;
-            height: 10rem;
-            background: radial-gradient(circle, rgba(52, 211, 153, 0.13), transparent 68%);
-            animation: heroOrbThree 9s ease-in-out infinite alternate;
-        }
-        .hero-ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: min(48rem, 72vw);
-            height: min(48rem, 72vw);
-            transform: translate(-50%, -50%);
-            border: 1px solid rgba(34, 211, 238, 0.07);
-            border-radius: 50%;
-            box-shadow:
-                0 0 0 5rem rgba(34, 211, 238, 0.015),
-                0 0 0 10rem rgba(59, 130, 246, 0.012);
-            animation: heroRingPulse 8s ease-in-out infinite;
         }
         .hero-content {
             position: relative;
@@ -1033,23 +981,6 @@
             to {
                 background-position: 42px 42px, 42px 42px;
             }
-        }
-        @keyframes heroAurora {
-            0% { transform: translate3d(-57%, -54%, 0) scale(0.92) rotate(0deg); }
-            100% { transform: translate3d(-42%, -45%, 0) scale(1.08) rotate(18deg); }
-        }
-        @keyframes heroOrbOne {
-            to { transform: translate3d(5rem, 3rem, 0) scale(1.18); }
-        }
-        @keyframes heroOrbTwo {
-            to { transform: translate3d(-5rem, -2.5rem, 0) scale(0.88); }
-        }
-        @keyframes heroOrbThree {
-            to { transform: translate3d(-2rem, 4rem, 0) scale(1.22); }
-        }
-        @keyframes heroRingPulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(0.96); opacity: 0.45; }
-            50% { transform: translate(-50%, -50%) scale(1.04); opacity: 0.8; }
         }
         @keyframes heroScrollBounce {
             0%, 100% { transform: translateY(0); }
@@ -1375,9 +1306,6 @@
         }
         @media (prefers-reduced-motion: reduce) {
             #home.hero-section::before,
-            #home.hero-section::after,
-            .hero-orb,
-            .hero-ring,
             .hero-scroll {
                 animation: none;
             }
@@ -1404,12 +1332,7 @@
     <!-- Hero Section -->
     <section id="home" class="hero-section">
         <canvas class="hero-neural-canvas" id="hero-neural-canvas" aria-hidden="true"></canvas>
-        <div class="hero-background" aria-hidden="true">
-            <span class="hero-orb hero-orb-one"></span>
-            <span class="hero-orb hero-orb-two"></span>
-            <span class="hero-orb hero-orb-three"></span>
-            <span class="hero-ring"></span>
-        </div>
+        <div class="hero-background" aria-hidden="true"></div>
         <div class="hero-content">
             <span class="hero-kicker">Available for impactful AI work</span>
             <h1>Falsi Jasani</h1>
@@ -1955,44 +1878,269 @@
     </footer>
 
     <script>
-        // Centralized neural-network settings for easy visual tuning.
+        // All visual tuning lives here so the animation can be adjusted without
+        // touching the rendering and topology code.
         const neuralNetworkConfig = Object.freeze({
-            nodeCountMin: 35,
-            nodeCountMax: 50,
-            densityArea: 26000,
-            nodeSizeMin: 2,
-            nodeSizeMax: 5,
-            nodeColor: '#3DD9FF',
-            nodeRgb: '61, 217, 255',
-            nodeOpacityMin: 0.1,
-            nodeOpacityMax: 0.2,
-            lineOpacity: 0.045,
-            lineCursorBoost: 0.035,
+            seed: 7319,
+            backgroundColor: '#0B1220',
+            nodeColor: '#38BDF8',
+            nodeRgb: '56, 189, 248',
+            lineColor: 'rgba(56, 189, 248, 0.14)',
+            lineOpacity: 0.14,
+            glowColor: 'rgba(56, 189, 248, 0.2)',
+            glowOpacity: 0.2,
             lineWidth: 1,
-            connectionDistance: 165,
-            movementRange: 20,
-            driftRange: 14,
-            cursorMovementRange: 6,
-            durationMin: 12000,
-            durationMax: 25000,
-            cursorRadius: 180,
-            cursorEase: 0.035,
-            connectionFadeMin: 12000,
-            connectionFadeMax: 24000,
-            maxDevicePixelRatio: 2
+            spatialCellSize: 152,
+            structuralLineFactor: 0.7,
+            signalOpacity: 0.24,
+            signalRadius: 1.5,
+            signalDurationMin: 7000,
+            signalDurationMax: 11000,
+            centralClusterId: 'core',
+            cursorRadius: 210,
+            cursorEase: 0.075,
+            cursorFadeEase: 0.055,
+            cursorForce: 1.45,
+            cursorSpring: 0.052,
+            cursorDamping: 0.84,
+            cursorMaxOffset: 52,
+            topologyInterval: 800,
+            connectionFadeMin: 500,
+            connectionFadeMax: 1000,
+            maxDevicePixelRatio: 2,
+            layers: Object.freeze([
+                Object.freeze({
+                    id: 'far',
+                    count: 10,
+                    radius: [3.2, 4.6],
+                    opacity: [0.065, 0.105],
+                    movement: 18,
+                    noiseSpeed: 0.000018,
+                    connectionDistance: 152,
+                    disconnectMultiplier: 1.24,
+                    maxConnections: 2,
+                    interactionFactor: 0.38,
+                    lineOpacityFactor: 0.38,
+                    blur: 1.4,
+                    glow: 13
+                }),
+                Object.freeze({
+                    id: 'middle',
+                    count: 20,
+                    radius: [2.25, 3.3],
+                    opacity: [0.085, 0.14],
+                    movement: 22,
+                    noiseSpeed: 0.000026,
+                    connectionDistance: 142,
+                    disconnectMultiplier: 1.22,
+                    maxConnections: 3,
+                    interactionFactor: 0.68,
+                    lineOpacityFactor: 0.58,
+                    blur: 0.45,
+                    glow: 9
+                }),
+                Object.freeze({
+                    id: 'near',
+                    count: 35,
+                    radius: [1.45, 2.35],
+                    opacity: [0.11, 0.19],
+                    movement: 27,
+                    noiseSpeed: 0.000036,
+                    connectionDistance: 132,
+                    disconnectMultiplier: 1.2,
+                    maxConnections: 4,
+                    interactionFactor: 1,
+                    lineOpacityFactor: 0.78,
+                    blur: 0,
+                    glow: 6
+                })
+            ]),
+            clusters: Object.freeze([
+                Object.freeze({
+                    id: 'core', x: 0.5, y: 0.52, count: 17,
+                    spread: 0.15, stretchX: 1.25, stretchY: 0.8, seed: 11
+                }),
+                Object.freeze({
+                    id: 'north-west', x: 0.07, y: 0.16, count: 6,
+                    spread: 0.078, stretchX: 0.9, stretchY: 1.1, seed: 23, bridgeCount: 3
+                }),
+                Object.freeze({
+                    id: 'upper-left', x: 0.28, y: 0.32, count: 7,
+                    spread: 0.088, stretchX: 0.85, stretchY: 1.15, seed: 37, bridgeCount: 3
+                }),
+                Object.freeze({
+                    id: 'north', x: 0.62, y: 0.13, count: 5,
+                    spread: 0.078, stretchX: 0.8, stretchY: 1.2, seed: 43, bridgeCount: 3
+                }),
+                Object.freeze({
+                    id: 'upper-right', x: 0.81, y: 0.28, count: 6,
+                    spread: 0.085, stretchX: 1.1, stretchY: 0.9, seed: 59, bridgeCount: 3
+                }),
+                Object.freeze({
+                    id: 'right', x: 0.94, y: 0.53, count: 6,
+                    spread: 0.082, stretchX: 0.85, stretchY: 1.15, seed: 71, bridgeCount: 3
+                }),
+                Object.freeze({
+                    id: 'lower-right', x: 0.77, y: 0.76, count: 6,
+                    spread: 0.085, stretchX: 1.05, stretchY: 0.95, seed: 83, bridgeCount: 3
+                }),
+                Object.freeze({
+                    id: 'south', x: 0.51, y: 0.9, count: 6,
+                    spread: 0.082, stretchX: 0.9, stretchY: 1.1, seed: 97, bridgeCount: 3
+                }),
+                Object.freeze({
+                    id: 'lower-left', x: 0.24, y: 0.76, count: 6,
+                    spread: 0.088, stretchX: 1.1, stretchY: 0.9, seed: 109, bridgeCount: 3
+                })
+            ]),
+            ambientGlows: Object.freeze([
+                Object.freeze({
+                    x: 0.22, y: 0.28, radius: 0.44, drift: 0.085,
+                    duration: 42000, opacityFactor: 0.1, seed: 12
+                }),
+                Object.freeze({
+                    x: 0.72, y: 0.36, radius: 0.38, drift: 0.07,
+                    duration: 56000, opacityFactor: 0.085, seed: 47
+                }),
+                Object.freeze({
+                    x: 0.52, y: 0.78, radius: 0.34, drift: 0.06,
+                    duration: 33000, opacityFactor: 0.07, seed: 83
+                })
+            ])
         });
+
+        class SeededRandom {
+            constructor(seed) {
+                this.state = seed >>> 0;
+            }
+
+            next() {
+                this.state = (Math.imul(1664525, this.state) + 1013904223) >>> 0;
+                return this.state / 4294967296;
+            }
+
+            between(minimum, maximum) {
+                return minimum + this.next() * (maximum - minimum);
+            }
+        }
+
+        // Deterministic improved Perlin noise provides curved, continuous paths.
+        // Nodes never receive a velocity, bounce, or choose a random direction.
+        class PerlinNoise3D {
+            constructor(seed) {
+                const random = new SeededRandom(seed);
+                const permutation = Array.from({ length: 256 }, (_, index) => index);
+
+                for (let index = permutation.length - 1; index > 0; index -= 1) {
+                    const swapIndex = Math.floor(random.next() * (index + 1));
+                    [permutation[index], permutation[swapIndex]] =
+                        [permutation[swapIndex], permutation[index]];
+                }
+
+                this.permutation = new Uint16Array(512);
+                for (let index = 0; index < 512; index += 1) {
+                    this.permutation[index] = permutation[index & 255];
+                }
+            }
+
+            fade(value) {
+                return value * value * value * (value * (value * 6 - 15) + 10);
+            }
+
+            lerp(start, end, amount) {
+                return start + amount * (end - start);
+            }
+
+            gradient(hash, x, y, z) {
+                const code = hash & 15;
+                const first = code < 8 ? x : y;
+                const second = code < 4 ? y : (code === 12 || code === 14 ? x : z);
+                return ((code & 1) === 0 ? first : -first) +
+                    ((code & 2) === 0 ? second : -second);
+            }
+
+            noise(x, y, z) {
+                const floorX = Math.floor(x);
+                const floorY = Math.floor(y);
+                const floorZ = Math.floor(z);
+                const unitX = floorX & 255;
+                const unitY = floorY & 255;
+                const unitZ = floorZ & 255;
+                const localX = x - floorX;
+                const localY = y - floorY;
+                const localZ = z - floorZ;
+                const fadeX = this.fade(localX);
+                const fadeY = this.fade(localY);
+                const fadeZ = this.fade(localZ);
+                const p = this.permutation;
+                const a = p[unitX] + unitY;
+                const aa = p[a] + unitZ;
+                const ab = p[a + 1] + unitZ;
+                const b = p[unitX + 1] + unitY;
+                const ba = p[b] + unitZ;
+                const bb = p[b + 1] + unitZ;
+
+                return this.lerp(
+                    this.lerp(
+                        this.lerp(
+                            this.gradient(p[aa], localX, localY, localZ),
+                            this.gradient(p[ba], localX - 1, localY, localZ),
+                            fadeX
+                        ),
+                        this.lerp(
+                            this.gradient(p[ab], localX, localY - 1, localZ),
+                            this.gradient(p[bb], localX - 1, localY - 1, localZ),
+                            fadeX
+                        ),
+                        fadeY
+                    ),
+                    this.lerp(
+                        this.lerp(
+                            this.gradient(p[aa + 1], localX, localY, localZ - 1),
+                            this.gradient(p[ba + 1], localX - 1, localY, localZ - 1),
+                            fadeX
+                        ),
+                        this.lerp(
+                            this.gradient(p[ab + 1], localX, localY - 1, localZ - 1),
+                            this.gradient(p[bb + 1], localX - 1, localY - 1, localZ - 1),
+                            fadeX
+                        ),
+                        fadeY
+                    ),
+                    fadeZ
+                );
+            }
+        }
 
         class HeroNeuralNetwork {
             constructor(canvas, container, config) {
                 this.canvas = canvas;
                 this.container = container;
                 this.config = config;
-                this.context = canvas.getContext('2d', { alpha: true });
+                this.context = canvas.getContext('2d', {
+                    alpha: true,
+                    desynchronized: true
+                });
+                this.noise = new PerlinNoise3D(config.seed);
                 this.nodes = [];
+                this.nodeById = new Map();
+                this.connections = new Map();
                 this.width = 0;
                 this.height = 0;
                 this.frameId = null;
-                this.cursor = { x: 0, y: 0, active: false };
+                this.elapsedTime = 0;
+                this.lastFrameTimestamp = null;
+                this.lastNodeUpdateTime = null;
+                this.lastTopologyUpdate = -Infinity;
+                this.cursor = {
+                    x: 0,
+                    y: 0,
+                    targetX: 0,
+                    targetY: 0,
+                    strength: 0,
+                    active: false,
+                    initialized: false
+                };
                 this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
                 this.animate = this.animate.bind(this);
@@ -2009,7 +2157,12 @@
                 this.container.addEventListener('pointermove', this.handlePointerMove, { passive: true });
                 this.container.addEventListener('pointerleave', this.handlePointerLeave);
                 document.addEventListener('visibilitychange', this.handleVisibilityChange);
-                this.reducedMotion.addEventListener('change', this.handleMotionPreference);
+
+                if (typeof this.reducedMotion.addEventListener === 'function') {
+                    this.reducedMotion.addEventListener('change', this.handleMotionPreference);
+                } else {
+                    this.reducedMotion.addListener(this.handleMotionPreference);
+                }
 
                 if ('ResizeObserver' in window) {
                     this.resizeObserver = new ResizeObserver(this.resize);
@@ -2021,82 +2174,148 @@
                 this.resize();
             }
 
-            randomBetween(minimum, maximum) {
-                return minimum + Math.random() * (maximum - minimum);
-            }
-
             clamp(value, minimum, maximum) {
                 return Math.min(maximum, Math.max(minimum, value));
             }
 
+            smoothstep(value) {
+                const normalized = this.clamp(value, 0, 1);
+                return normalized * normalized * (3 - 2 * normalized);
+            }
+
             resize() {
                 const bounds = this.container.getBoundingClientRect();
-                this.width = Math.max(1, Math.round(bounds.width));
-                this.height = Math.max(1, Math.round(bounds.height));
-
+                const nextWidth = Math.max(1, Math.round(bounds.width));
+                const nextHeight = Math.max(1, Math.round(bounds.height));
                 const pixelRatio = Math.min(
                     window.devicePixelRatio || 1,
                     this.config.maxDevicePixelRatio
                 );
 
+                if (
+                    nextWidth === this.width &&
+                    nextHeight === this.height &&
+                    this.canvas.width === Math.round(nextWidth * pixelRatio)
+                ) {
+                    return;
+                }
+
+                this.width = nextWidth;
+                this.height = nextHeight;
                 this.canvas.width = Math.round(this.width * pixelRatio);
                 this.canvas.height = Math.round(this.height * pixelRatio);
                 this.context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
                 this.createNodes();
+                this.updateNodes(this.elapsedTime, false);
+                this.refreshTopology(this.elapsedTime, true);
+                this.draw(this.elapsedTime, !this.reducedMotion.matches);
 
                 if (this.reducedMotion.matches) {
                     this.stop();
-                    this.draw(0, false);
                 } else if (!document.hidden) {
                     this.start();
                 }
             }
 
             createNodes() {
-                const desiredCount = Math.round(
-                    (this.width * this.height) / this.config.densityArea
-                );
-                const nodeCount = this.clamp(
-                    desiredCount,
-                    this.config.nodeCountMin,
-                    this.config.nodeCountMax
-                );
-                const safeMargin = this.config.movementRange;
+                const layoutSeed = this.config.seed +
+                    Math.imul(this.width, 31) +
+                    Math.imul(this.height, 17);
+                const random = new SeededRandom(layoutSeed);
+                const clusterSlots = [];
+                const assignedPerCluster = new Map();
+                let nextNodeId = 0;
 
-                this.nodes = Array.from({ length: nodeCount }, (_, index) => ({
-                    index,
-                    baseX: this.randomBetween(safeMargin, Math.max(safeMargin, this.width - safeMargin)),
-                    baseY: this.randomBetween(safeMargin, Math.max(safeMargin, this.height - safeMargin)),
-                    x: 0,
-                    y: 0,
-                    size: this.randomBetween(this.config.nodeSizeMin, this.config.nodeSizeMax),
-                    opacity: this.randomBetween(
-                        this.config.nodeOpacityMin,
-                        this.config.nodeOpacityMax
-                    ),
-                    driftX: this.randomBetween(6, this.config.driftRange),
-                    driftY: this.randomBetween(6, this.config.driftRange),
-                    phaseX: this.randomBetween(0, Math.PI * 2),
-                    phaseY: this.randomBetween(0, Math.PI * 2),
-                    durationX: this.randomBetween(
-                        this.config.durationMin,
-                        this.config.durationMax
-                    ),
-                    durationY: this.randomBetween(
-                        this.config.durationMin,
-                        this.config.durationMax
-                    ),
-                    cursorX: 0,
-                    cursorY: 0
-                }));
+                this.nodes = [];
+                this.nodeById.clear();
+                this.connections.clear();
+                this.lastNodeUpdateTime = null;
+
+                this.config.clusters.forEach((cluster, clusterIndex) => {
+                    for (let index = 0; index < cluster.count; index += 1) {
+                        clusterSlots.push(clusterIndex);
+                    }
+                    assignedPerCluster.set(cluster.id, 0);
+                });
+
+                // Shuffle only the fixed initial layout assignment. Animation
+                // remains entirely noise-driven and deterministic.
+                for (let index = clusterSlots.length - 1; index > 0; index -= 1) {
+                    const swapIndex = Math.floor(random.next() * (index + 1));
+                    [clusterSlots[index], clusterSlots[swapIndex]] =
+                        [clusterSlots[swapIndex], clusterSlots[index]];
+                }
+
+                this.config.layers.forEach((layer, layerIndex) => {
+                    const safeMargin = layer.movement * 1.4 + layer.radius[1] + 4;
+
+                    for (let index = 0; index < layer.count; index += 1) {
+                        const clusterIndex = clusterSlots[nextNodeId % clusterSlots.length];
+                        const cluster = this.config.clusters[clusterIndex];
+                        const clusterOrder = assignedPerCluster.get(cluster.id);
+                        const spread = Math.min(this.width, this.height) * cluster.spread;
+                        const angle = random.between(0, Math.PI * 2);
+                        const radius = Math.sqrt(random.next()) * spread;
+                        const clusterX = cluster.x * this.width;
+                        const clusterY = cluster.y * this.height;
+                        const isHub = clusterOrder === 0 ||
+                            (cluster.id === this.config.centralClusterId && clusterOrder < 3);
+                        const node = {
+                            id: nextNodeId,
+                            layerId: layer.id,
+                            layerIndex,
+                            clusterId: cluster.id,
+                            clusterIndex,
+                            isHub,
+                            baseX: this.clamp(
+                                clusterX + Math.cos(angle) * radius * cluster.stretchX,
+                                safeMargin,
+                                Math.max(safeMargin, this.width - safeMargin)
+                            ),
+                            baseY: this.clamp(
+                                clusterY + Math.sin(angle) * radius * cluster.stretchY,
+                                safeMargin,
+                                Math.max(safeMargin, this.height - safeMargin)
+                            ),
+                            naturalX: 0,
+                            naturalY: 0,
+                            x: 0,
+                            y: 0,
+                            interactionX: 0,
+                            interactionY: 0,
+                            interactionVelocityX: 0,
+                            interactionVelocityY: 0,
+                            radius: random.between(layer.radius[0], layer.radius[1]) *
+                                (isHub ? 1.35 : 1),
+                            opacity: random.between(layer.opacity[0], layer.opacity[1]) +
+                                (isHub ? 0.018 : 0),
+                            noiseX: random.between(0, 240),
+                            noiseY: random.between(0, 240),
+                            noiseZ: random.between(0, 240)
+                        };
+
+                        this.nodes.push(node);
+                        this.nodeById.set(node.id, node);
+                        assignedPerCluster.set(cluster.id, clusterOrder + 1);
+                        nextNodeId += 1;
+                    }
+                });
             }
 
             handlePointerMove(event) {
                 if (this.reducedMotion.matches) return;
 
                 const bounds = this.container.getBoundingClientRect();
-                this.cursor.x = event.clientX - bounds.left;
-                this.cursor.y = event.clientY - bounds.top;
+                this.cursor.targetX = event.clientX - bounds.left;
+                this.cursor.targetY = event.clientY - bounds.top;
+
+                if (!this.cursor.initialized) {
+                    this.cursor.x = this.cursor.targetX;
+                    this.cursor.y = this.cursor.targetY;
+                    this.cursor.initialized = true;
+                }
+
                 this.cursor.active = true;
             }
 
@@ -2116,158 +2335,700 @@
                 if (event.matches) {
                     this.stop();
                     this.cursor.active = false;
-                    this.nodes.forEach(node => {
-                        node.cursorX = 0;
-                        node.cursorY = 0;
-                    });
-                    this.draw(0, false);
+                    this.cursor.strength = 0;
+                    this.draw(this.elapsedTime, false);
                 } else if (!document.hidden) {
                     this.start();
                 }
             }
 
             start() {
-                if (this.frameId !== null || document.hidden || this.reducedMotion.matches) return;
+                if (
+                    this.frameId !== null ||
+                    document.hidden ||
+                    this.reducedMotion.matches
+                ) {
+                    return;
+                }
+
                 this.frameId = requestAnimationFrame(this.animate);
             }
 
             stop() {
-                if (this.frameId === null) return;
-                cancelAnimationFrame(this.frameId);
-                this.frameId = null;
+                if (this.frameId !== null) {
+                    cancelAnimationFrame(this.frameId);
+                    this.frameId = null;
+                }
+
+                // Resetting this value prevents a jump after an inactive tab resumes.
+                this.lastFrameTimestamp = null;
             }
 
             animate(timestamp) {
                 this.frameId = null;
-                this.draw(timestamp, true);
+
+                if (this.lastFrameTimestamp === null) {
+                    this.lastFrameTimestamp = timestamp;
+                } else {
+                    const frameDelta = Math.min(timestamp - this.lastFrameTimestamp, 34);
+                    this.elapsedTime += Math.max(0, frameDelta);
+                    this.lastFrameTimestamp = timestamp;
+                }
+
+                this.draw(this.elapsedTime, true);
                 this.start();
             }
 
+            updateCursor(animated) {
+                if (!animated) {
+                    this.cursor.strength = 0;
+                    return;
+                }
+
+                if (this.cursor.initialized) {
+                    this.cursor.x +=
+                        (this.cursor.targetX - this.cursor.x) * this.config.cursorEase;
+                    this.cursor.y +=
+                        (this.cursor.targetY - this.cursor.y) * this.config.cursorEase;
+                }
+
+                const targetStrength = this.cursor.active ? 1 : 0;
+                this.cursor.strength +=
+                    (targetStrength - this.cursor.strength) * this.config.cursorFadeEase;
+            }
+
             updateNodes(timestamp, animated) {
-                const twoPi = Math.PI * 2;
+                const elapsedSinceUpdate = this.lastNodeUpdateTime === null
+                    ? 16.667
+                    : timestamp - this.lastNodeUpdateTime;
+                const frameScale = animated
+                    ? this.clamp(elapsedSinceUpdate / 16.667, 0, 2)
+                    : 0;
+                this.lastNodeUpdateTime = timestamp;
 
                 this.nodes.forEach(node => {
-                    const driftX = animated
-                        ? Math.sin((timestamp / node.durationX) * twoPi + node.phaseX) * node.driftX
-                        : Math.sin(node.phaseX) * node.driftX;
-                    const driftY = animated
-                        ? Math.cos((timestamp / node.durationY) * twoPi + node.phaseY) * node.driftY
-                        : Math.cos(node.phaseY) * node.driftY;
+                    const layer = this.config.layers[node.layerIndex];
+                    const cluster = this.config.clusters[node.clusterIndex];
+                    const time = timestamp * layer.noiseSpeed;
+                    const clusterTime = time * 0.7;
+                    const groupMovement = layer.movement * 0.48;
+                    const groupX = this.noise.noise(
+                        cluster.seed,
+                        17.3,
+                        clusterTime
+                    ) * groupMovement;
+                    const groupY = this.noise.noise(
+                        29.1,
+                        cluster.seed,
+                        clusterTime + 43.8
+                    ) * groupMovement;
 
-                    const naturalX = node.baseX + driftX;
-                    const naturalY = node.baseY + driftY;
-                    let targetCursorX = 0;
-                    let targetCursorY = 0;
+                    node.naturalX = node.baseX + this.noise.noise(
+                        node.noiseX,
+                        node.noiseY,
+                        node.noiseZ + time
+                    ) * layer.movement * 0.84 + groupX;
+                    node.naturalY = node.baseY + this.noise.noise(
+                        node.noiseY + 37.4,
+                        node.noiseZ - 19.2,
+                        node.noiseX + time
+                    ) * layer.movement * 0.84 + groupY;
 
-                    if (animated && this.cursor.active) {
-                        const deltaX = this.cursor.x - naturalX;
-                        const deltaY = this.cursor.y - naturalY;
+                    if (!animated) {
+                        node.interactionX = 0;
+                        node.interactionY = 0;
+                        node.interactionVelocityX = 0;
+                        node.interactionVelocityY = 0;
+                    } else if (frameScale > 0) {
+                        const currentX = node.naturalX + node.interactionX;
+                        const currentY = node.naturalY + node.interactionY;
+                        const deltaX = currentX - this.cursor.x;
+                        const deltaY = currentY - this.cursor.y;
                         const distance = Math.hypot(deltaX, deltaY);
 
-                        if (distance > 0 && distance < this.config.cursorRadius) {
-                            const influence = 1 - distance / this.config.cursorRadius;
-                            const pull = this.config.cursorMovementRange * influence;
-                            targetCursorX = (deltaX / distance) * pull;
-                            targetCursorY = (deltaY / distance) * pull;
+                        if (
+                            this.cursor.strength > 0.001 &&
+                            distance < this.config.cursorRadius
+                        ) {
+                            const influence = this.smoothstep(
+                                1 - distance / this.config.cursorRadius
+                            ) * this.cursor.strength;
+                            const force = this.config.cursorForce *
+                                layer.interactionFactor *
+                                influence *
+                                frameScale;
+                            const fallbackAngle = node.id * 2.399963;
+                            const directionX = distance > 0.001
+                                ? deltaX / distance
+                                : Math.cos(fallbackAngle);
+                            const directionY = distance > 0.001
+                                ? deltaY / distance
+                                : Math.sin(fallbackAngle);
+
+                            node.interactionVelocityX += directionX * force;
+                            node.interactionVelocityY += directionY * force;
+                        }
+
+                        node.interactionVelocityX -=
+                            node.interactionX * this.config.cursorSpring * frameScale;
+                        node.interactionVelocityY -=
+                            node.interactionY * this.config.cursorSpring * frameScale;
+
+                        const damping = Math.pow(
+                            this.config.cursorDamping,
+                            frameScale
+                        );
+                        node.interactionVelocityX *= damping;
+                        node.interactionVelocityY *= damping;
+                        node.interactionX += node.interactionVelocityX * frameScale;
+                        node.interactionY += node.interactionVelocityY * frameScale;
+
+                        const maximumOffset =
+                            this.config.cursorMaxOffset * layer.interactionFactor;
+                        const offsetLength = Math.hypot(
+                            node.interactionX,
+                            node.interactionY
+                        );
+                        if (offsetLength > maximumOffset) {
+                            const offsetScale = maximumOffset / offsetLength;
+                            node.interactionX *= offsetScale;
+                            node.interactionY *= offsetScale;
+                            node.interactionVelocityX *= 0.72;
+                            node.interactionVelocityY *= 0.72;
                         }
                     }
 
-                    node.cursorX += (targetCursorX - node.cursorX) * this.config.cursorEase;
-                    node.cursorY += (targetCursorY - node.cursorY) * this.config.cursorEase;
-                    node.x = naturalX + node.cursorX;
-                    node.y = naturalY + node.cursorY;
+                    node.x = node.naturalX + node.interactionX;
+                    node.y = node.naturalY + node.interactionY;
+                });
+            }
+
+            connectionKey(firstId, secondId) {
+                return firstId < secondId
+                    ? `${firstId}-${secondId}`
+                    : `${secondId}-${firstId}`;
+            }
+
+            connectionDuration(key) {
+                let hash = 2166136261;
+                for (let index = 0; index < key.length; index += 1) {
+                    hash ^= key.charCodeAt(index);
+                    hash = Math.imul(hash, 16777619);
+                }
+
+                const range =
+                    this.config.connectionFadeMax - this.config.connectionFadeMin;
+                return this.config.connectionFadeMin + (Math.abs(hash) % (range + 1));
+            }
+
+            updateConnection(connection, timestamp) {
+                const elapsed = timestamp - connection.transitionStarted;
+                const progress = connection.duration === 0
+                    ? 1
+                    : this.clamp(elapsed / connection.duration, 0, 1);
+                const eased = this.smoothstep(progress);
+
+                connection.opacity = connection.transitionFrom +
+                    (connection.targetOpacity - connection.transitionFrom) * eased;
+
+                if (progress >= 1) {
+                    connection.opacity = connection.targetOpacity;
+                    connection.transitionFrom = connection.targetOpacity;
+                }
+            }
+
+            transitionConnection(connection, targetOpacity, timestamp) {
+                if (connection.targetOpacity === targetOpacity) return;
+
+                this.updateConnection(connection, timestamp);
+                connection.transitionFrom = connection.opacity;
+                connection.targetOpacity = targetOpacity;
+                connection.transitionStarted = timestamp;
+                connection.duration = this.connectionDuration(connection.key);
+            }
+
+            updateConnectionTransitions(timestamp) {
+                this.connections.forEach((connection, key) => {
+                    this.updateConnection(connection, timestamp);
+
+                    if (
+                        connection.targetOpacity === 0 &&
+                        connection.opacity <= 0.001 &&
+                        timestamp - connection.transitionStarted >= connection.duration
+                    ) {
+                        this.connections.delete(key);
+                    }
                 });
             }
 
             buildSpatialGrid() {
                 const grid = new Map();
-                const cellSize = this.config.connectionDistance;
+                const cellSize = this.config.spatialCellSize;
 
-                this.nodes.forEach((node, index) => {
-                    const column = Math.floor(node.x / cellSize);
-                    const row = Math.floor(node.y / cellSize);
-                    const key = `${column},${row}`;
+                this.nodes.forEach(node => {
+                    const column = Math.floor(node.naturalX / cellSize);
+                    const row = Math.floor(node.naturalY / cellSize);
+                    const key = `${node.clusterId}:${column},${row}`;
 
                     if (!grid.has(key)) grid.set(key, []);
-                    grid.get(key).push(index);
+                    grid.get(key).push(node);
                 });
 
                 return grid;
             }
 
-            connectionLifecycle(firstIndex, secondIndex, timestamp) {
-                const seed = (firstIndex * 37 + secondIndex * 61) % 101;
-                const duration = this.config.connectionFadeMin +
-                    (seed / 100) *
-                    (this.config.connectionFadeMax - this.config.connectionFadeMin);
-                const phase = (seed / 100) * Math.PI * 2;
-                const wave = (Math.sin((timestamp / duration) * Math.PI * 2 + phase) + 1) / 2;
+            nearbyNodes(node, grid) {
+                const candidates = [];
+                const cellSize = this.config.spatialCellSize;
+                const column = Math.floor(node.naturalX / cellSize);
+                const row = Math.floor(node.naturalY / cellSize);
+                const nodeLayer = this.config.layers[node.layerIndex];
 
-                // Long, smooth cycles allow a line to fade and naturally reconnect.
-                return 0.12 + wave * 0.88;
+                for (let columnOffset = -1; columnOffset <= 1; columnOffset += 1) {
+                    for (let rowOffset = -1; rowOffset <= 1; rowOffset += 1) {
+                        const nearby = grid.get(
+                            `${node.clusterId}:${column + columnOffset},${row + rowOffset}`
+                        );
+                        if (!nearby) continue;
+
+                        nearby.forEach(candidate => {
+                            if (candidate.id === node.id) return;
+
+                            const candidateLayer = this.config.layers[candidate.layerIndex];
+                            const connectionDistance = Math.min(
+                                nodeLayer.connectionDistance,
+                                candidateLayer.connectionDistance
+                            );
+                            const distance = Math.hypot(
+                                candidate.naturalX - node.naturalX,
+                                candidate.naturalY - node.naturalY
+                            );
+                            if (distance <= connectionDistance) {
+                                candidates.push({
+                                    node: candidate,
+                                    distance,
+                                    connectionDistance,
+                                    disconnectMultiplier: Math.max(
+                                        nodeLayer.disconnectMultiplier,
+                                        candidateLayer.disconnectMultiplier
+                                    )
+                                });
+                            }
+                        });
+                    }
+                }
+
+                return candidates.sort((first, second) => first.distance - second.distance);
             }
 
-            drawConnections(timestamp, animated) {
+            addConnection(
+                firstNode,
+                secondNode,
+                timestamp,
+                visibleImmediately,
+                structural = false,
+                connectionDistance = null,
+                disconnectMultiplier = 1.2
+            ) {
+                const key = this.connectionKey(firstNode.id, secondNode.id);
+                const connection = {
+                    key,
+                    firstId: firstNode.id,
+                    secondId: secondNode.id,
+                    layerIndex: Math.max(firstNode.layerIndex, secondNode.layerIndex),
+                    structural,
+                    connectionDistance,
+                    disconnectMultiplier,
+                    opacity: visibleImmediately ? 1 : 0,
+                    targetOpacity: 1,
+                    transitionFrom: visibleImmediately ? 1 : 0,
+                    transitionStarted: timestamp,
+                    duration: visibleImmediately ? 0 : this.connectionDuration(key)
+                };
+
+                this.connections.set(key, connection);
+                return connection;
+            }
+
+            ensureStructuralConnections(timestamp, visibleImmediately) {
+                const coreNodes = this.nodes.filter(
+                    node => node.clusterId === this.config.centralClusterId
+                );
+                if (coreNodes.length === 0) return;
+
+                this.config.clusters.forEach(cluster => {
+                    if (
+                        cluster.id === this.config.centralClusterId ||
+                        !cluster.bridgeCount
+                    ) {
+                        return;
+                    }
+
+                    const satelliteNodes = this.nodes.filter(
+                        node => node.clusterId === cluster.id
+                    );
+                    if (satelliteNodes.length === 0) return;
+
+                    const existingBridges = [...this.connections.values()].filter(
+                        connection => {
+                            if (!connection.structural) return false;
+                            const firstNode = this.nodeById.get(connection.firstId);
+                            const secondNode = this.nodeById.get(connection.secondId);
+                            if (!firstNode || !secondNode) return false;
+
+                            return (
+                                firstNode.clusterId === this.config.centralClusterId &&
+                                secondNode.clusterId === cluster.id
+                            ) || (
+                                secondNode.clusterId === this.config.centralClusterId &&
+                                firstNode.clusterId === cluster.id
+                            );
+                        }
+                    );
+                    if (existingBridges.length >= cluster.bridgeCount) return;
+
+                    const satelliteX = cluster.x * this.width;
+                    const satelliteY = cluster.y * this.height;
+                    const coreCluster = this.config.clusters.find(
+                        candidate => candidate.id === this.config.centralClusterId
+                    );
+                    const coreX = coreCluster.x * this.width;
+                    const coreY = coreCluster.y * this.height;
+                    const orderedCoreNodes = [...coreNodes].sort(
+                        (first, second) =>
+                            Math.hypot(
+                                first.naturalX - satelliteX,
+                                first.naturalY - satelliteY
+                            ) -
+                            Math.hypot(
+                                second.naturalX - satelliteX,
+                                second.naturalY - satelliteY
+                            )
+                    );
+                    const orderedSatelliteNodes = [...satelliteNodes].sort(
+                        (first, second) =>
+                            Math.hypot(
+                                first.naturalX - coreX,
+                                first.naturalY - coreY
+                            ) -
+                            Math.hypot(
+                                second.naturalX - coreX,
+                                second.naturalY - coreY
+                            )
+                    );
+                    let bridgeCount = existingBridges.length;
+                    let hasSignal = existingBridges.some(connection => connection.signal);
+
+                    for (let index = 0; index < cluster.bridgeCount; index += 1) {
+                        if (bridgeCount >= cluster.bridgeCount) break;
+
+                        const firstNode = orderedCoreNodes[index % orderedCoreNodes.length];
+                        const secondNode =
+                            orderedSatelliteNodes[index % orderedSatelliteNodes.length];
+                        const key = this.connectionKey(firstNode.id, secondNode.id);
+
+                        if (!this.connections.has(key)) {
+                            const connection = this.addConnection(
+                                firstNode,
+                                secondNode,
+                                timestamp,
+                                visibleImmediately,
+                                true
+                            );
+                            connection.signal = !hasSignal;
+                            hasSignal = true;
+                            bridgeCount += 1;
+                        }
+                    }
+                });
+            }
+
+            refreshTopology(timestamp, visibleImmediately = false) {
+                this.updateConnectionTransitions(timestamp);
+                this.ensureStructuralConnections(timestamp, visibleImmediately);
+                const activeCounts = new Map(this.nodes.map(node => [node.id, 0]));
+
+                // Existing connections use a larger disconnect threshold than the
+                // initial connect threshold. This hysteresis prevents flicker.
+                this.connections.forEach(connection => {
+                    if (connection.structural) return;
+
+                    const firstNode = this.nodeById.get(connection.firstId);
+                    const secondNode = this.nodeById.get(connection.secondId);
+                    if (!firstNode || !secondNode) return;
+
+                    const distance = Math.hypot(
+                        secondNode.naturalX - firstNode.naturalX,
+                        secondNode.naturalY - firstNode.naturalY
+                    );
+                    const disconnectDistance =
+                        connection.connectionDistance * connection.disconnectMultiplier;
+
+                    if (distance > disconnectDistance) {
+                        this.transitionConnection(connection, 0, timestamp);
+                    } else if (connection.targetOpacity > 0) {
+                        activeCounts.set(firstNode.id, activeCounts.get(firstNode.id) + 1);
+                        activeCounts.set(secondNode.id, activeCounts.get(secondNode.id) + 1);
+                    }
+                });
+
                 const grid = this.buildSpatialGrid();
-                const cellSize = this.config.connectionDistance;
-                const checkedPairs = new Set();
+                this.nodes.forEach(node => {
+                    const nodeLayer = this.config.layers[node.layerIndex];
+                    if (activeCounts.get(node.id) >= nodeLayer.maxConnections) return;
+
+                    const candidates = this.nearbyNodes(node, grid);
+                    for (const candidate of candidates) {
+                        const candidateLayer = this.config.layers[candidate.node.layerIndex];
+                        if (activeCounts.get(node.id) >= nodeLayer.maxConnections) break;
+                        if (
+                            activeCounts.get(candidate.node.id) >=
+                            candidateLayer.maxConnections
+                        ) {
+                            continue;
+                        }
+
+                        const key = this.connectionKey(node.id, candidate.node.id);
+                        const existing = this.connections.get(key);
+
+                        if (existing) {
+                            const reconnectDistance = candidate.connectionDistance * 0.86;
+                            if (
+                                existing.targetOpacity === 0 &&
+                                candidate.distance <= reconnectDistance
+                            ) {
+                                this.transitionConnection(existing, 1, timestamp);
+                                activeCounts.set(node.id, activeCounts.get(node.id) + 1);
+                                activeCounts.set(
+                                    candidate.node.id,
+                                    activeCounts.get(candidate.node.id) + 1
+                                );
+                            }
+                            continue;
+                        }
+
+                        this.addConnection(
+                            node,
+                            candidate.node,
+                            timestamp,
+                            visibleImmediately,
+                            false,
+                            candidate.connectionDistance,
+                            candidate.disconnectMultiplier
+                        );
+                        activeCounts.set(node.id, activeCounts.get(node.id) + 1);
+                        activeCounts.set(
+                            candidate.node.id,
+                            activeCounts.get(candidate.node.id) + 1
+                        );
+                    }
+                });
+
+                this.lastTopologyUpdate = timestamp;
+            }
+
+            cursorInfluence(x, y) {
+                if (this.cursor.strength <= 0.001 || !this.cursor.initialized) return 0;
+
+                const distance = Math.hypot(this.cursor.x - x, this.cursor.y - y);
+                if (distance >= this.config.cursorRadius) return 0;
+
+                return this.smoothstep(1 - distance / this.config.cursorRadius) *
+                    this.cursor.strength;
+            }
+
+            drawAmbientGlows(timestamp) {
                 const context = this.context;
+                const longestSide = Math.max(this.width, this.height);
+
+                context.save();
+                context.globalCompositeOperation = 'screen';
+
+                this.config.ambientGlows.forEach(glow => {
+                    const time = timestamp / glow.duration;
+                    const driftX = this.noise.noise(glow.seed, 9.7, time) *
+                        this.width * glow.drift;
+                    const driftY = this.noise.noise(4.1, glow.seed, time + 31.6) *
+                        this.height * glow.drift;
+                    const x = this.width * glow.x + driftX;
+                    const y = this.height * glow.y + driftY;
+                    const radius = longestSide * glow.radius;
+                    const alpha = this.config.glowOpacity * glow.opacityFactor;
+                    const gradient = context.createRadialGradient(x, y, 0, x, y, radius);
+
+                    gradient.addColorStop(0, `rgba(${this.config.nodeRgb}, ${alpha})`);
+                    gradient.addColorStop(0.5, `rgba(${this.config.nodeRgb}, ${alpha * 0.35})`);
+                    gradient.addColorStop(1, `rgba(${this.config.nodeRgb}, 0)`);
+                    context.fillStyle = gradient;
+                    context.fillRect(0, 0, this.width, this.height);
+                });
+
+                context.restore();
+            }
+
+            drawCursorLight() {
+                if (this.cursor.strength <= 0.001 || !this.cursor.initialized) return;
+
+                const context = this.context;
+                const radius = this.config.cursorRadius;
+                const alpha = this.config.glowOpacity * 0.3 * this.cursor.strength;
+                const gradient = context.createRadialGradient(
+                    this.cursor.x,
+                    this.cursor.y,
+                    0,
+                    this.cursor.x,
+                    this.cursor.y,
+                    radius
+                );
+
+                gradient.addColorStop(0, `rgba(${this.config.nodeRgb}, ${alpha})`);
+                gradient.addColorStop(0.45, `rgba(${this.config.nodeRgb}, ${alpha * 0.28})`);
+                gradient.addColorStop(1, `rgba(${this.config.nodeRgb}, 0)`);
+
+                context.save();
+                context.globalCompositeOperation = 'screen';
+                context.fillStyle = gradient;
+                context.fillRect(
+                    this.cursor.x - radius,
+                    this.cursor.y - radius,
+                    radius * 2,
+                    radius * 2
+                );
+                context.restore();
+            }
+
+            drawStructuralSignal(
+                context,
+                connection,
+                firstNode,
+                secondNode,
+                controlX,
+                controlY,
+                timestamp
+            ) {
+                if (!connection.signal) return;
+
+                const seed =
+                    (connection.firstId * 47 + connection.secondId * 71) % 997;
+                const durationRange =
+                    this.config.signalDurationMax - this.config.signalDurationMin;
+                const duration = this.config.signalDurationMin +
+                    (seed % Math.max(1, durationRange));
+                const offset = (seed / 997) * duration;
+                const progress = ((timestamp + offset) % duration) / duration;
+                const travel = this.smoothstep(progress);
+                const inverse = 1 - travel;
+                const x = inverse * inverse * firstNode.x +
+                    2 * inverse * travel * controlX +
+                    travel * travel * secondNode.x;
+                const y = inverse * inverse * firstNode.y +
+                    2 * inverse * travel * controlY +
+                    travel * travel * secondNode.y;
+                const endpointFade = Math.sin(Math.PI * progress);
+                const opacity = this.config.signalOpacity *
+                    endpointFade *
+                    connection.opacity;
+
+                context.save();
+                context.globalCompositeOperation = 'screen';
+                context.fillStyle = `rgba(${this.config.nodeRgb}, ${opacity})`;
+                context.shadowColor = this.config.nodeColor;
+                context.shadowBlur = 11;
+                context.beginPath();
+                context.arc(
+                    x,
+                    y,
+                    this.config.signalRadius + endpointFade * 0.65,
+                    0,
+                    Math.PI * 2
+                );
+                context.fill();
+                context.restore();
+            }
+
+            drawConnections(timestamp) {
+                const context = this.context;
+                this.updateConnectionTransitions(timestamp);
 
                 context.save();
                 context.lineWidth = this.config.lineWidth;
                 context.lineCap = 'round';
 
-                this.nodes.forEach((node, firstIndex) => {
-                    const column = Math.floor(node.x / cellSize);
-                    const row = Math.floor(node.y / cellSize);
+                this.connections.forEach(connection => {
+                    if (connection.opacity <= 0.001) return;
 
-                    for (let columnOffset = -1; columnOffset <= 1; columnOffset += 1) {
-                        for (let rowOffset = -1; rowOffset <= 1; rowOffset += 1) {
-                            const nearby = grid.get(`${column + columnOffset},${row + rowOffset}`);
-                            if (!nearby) continue;
+                    const firstNode = this.nodeById.get(connection.firstId);
+                    const secondNode = this.nodeById.get(connection.secondId);
+                    if (!firstNode || !secondNode) return;
 
-                            nearby.forEach(secondIndex => {
-                                if (secondIndex <= firstIndex) return;
+                    const layer = this.config.layers[connection.layerIndex];
+                    const distance = Math.hypot(
+                        secondNode.x - firstNode.x,
+                        secondNode.y - firstNode.y
+                    );
+                    const disconnectDistance = connection.structural
+                        ? Math.max(this.width, this.height)
+                        : connection.connectionDistance * connection.disconnectMultiplier;
+                    const distanceFactor = connection.structural
+                        ? 0.82
+                        : this.clamp(
+                            1 - (distance / disconnectDistance) * 0.7,
+                            0.18,
+                            1
+                        );
+                    const midpointX = (firstNode.x + secondNode.x) / 2;
+                    const midpointY = (firstNode.y + secondNode.y) / 2;
+                    const cursorBoost = this.cursorInfluence(midpointX, midpointY);
+                    const opacity = this.config.lineOpacity *
+                        (connection.structural
+                            ? this.config.structuralLineFactor
+                            : layer.lineOpacityFactor) *
+                        distanceFactor *
+                        connection.opacity *
+                        (1 + cursorBoost * 0.72);
 
-                                const pairKey = `${firstIndex}-${secondIndex}`;
-                                if (checkedPairs.has(pairKey)) return;
-                                checkedPairs.add(pairKey);
+                    context.lineWidth = connection.structural ? 0.75 : this.config.lineWidth;
+                    context.strokeStyle = `rgba(${this.config.nodeRgb}, ${opacity})`;
+                    context.shadowColor = `rgba(${this.config.nodeRgb}, ${opacity})`;
+                    context.shadowBlur = cursorBoost * 7;
+                    context.beginPath();
+                    context.moveTo(firstNode.x, firstNode.y);
+                    let controlX = midpointX;
+                    let controlY = midpointY;
 
-                                const secondNode = this.nodes[secondIndex];
-                                const deltaX = secondNode.x - node.x;
-                                const deltaY = secondNode.y - node.y;
-                                const distance = Math.hypot(deltaX, deltaY);
-                                if (distance >= this.config.connectionDistance) return;
+                    if (connection.structural) {
+                        const normalX = distance > 0
+                            ? -(secondNode.y - firstNode.y) / distance
+                            : 0;
+                        const normalY = distance > 0
+                            ? (secondNode.x - firstNode.x) / distance
+                            : 0;
+                        const pairSeed =
+                            (connection.firstId * 17 + connection.secondId * 29) % 11;
+                        const bend = (pairSeed - 5) * Math.min(distance * 0.006, 2.4);
+                        controlX = midpointX + normalX * bend;
+                        controlY = midpointY + normalY * bend;
 
-                                const distanceFade = 1 - distance / this.config.connectionDistance;
-                                const lifecycle = animated
-                                    ? this.connectionLifecycle(firstIndex, secondIndex, timestamp)
-                                    : 0.65;
-                                let opacity = this.config.lineOpacity * distanceFade * lifecycle;
-
-                                if (this.cursor.active && animated) {
-                                    const midpointX = (node.x + secondNode.x) / 2;
-                                    const midpointY = (node.y + secondNode.y) / 2;
-                                    const cursorDistance = Math.hypot(
-                                        this.cursor.x - midpointX,
-                                        this.cursor.y - midpointY
-                                    );
-
-                                    if (cursorDistance < this.config.cursorRadius) {
-                                        opacity += this.config.lineCursorBoost *
-                                            (1 - cursorDistance / this.config.cursorRadius) *
-                                            distanceFade;
-                                    }
-                                }
-
-                                context.strokeStyle = `rgba(${this.config.nodeRgb}, ${opacity})`;
-                                context.beginPath();
-                                context.moveTo(node.x, node.y);
-                                context.lineTo(secondNode.x, secondNode.y);
-                                context.stroke();
-                            });
-                        }
+                        context.quadraticCurveTo(
+                            controlX,
+                            controlY,
+                            secondNode.x,
+                            secondNode.y
+                        );
+                    } else {
+                        context.lineTo(secondNode.x, secondNode.y);
                     }
+
+                    context.stroke();
+                    this.drawStructuralSignal(
+                        context,
+                        connection,
+                        firstNode,
+                        secondNode,
+                        controlX,
+                        controlY,
+                        timestamp
+                    );
                 });
 
                 context.restore();
@@ -2275,24 +3036,54 @@
 
             drawNodes() {
                 const context = this.context;
-                context.save();
-                context.shadowColor = this.config.nodeColor;
-                context.shadowBlur = 5;
 
-                this.nodes.forEach(node => {
-                    context.fillStyle = `rgba(${this.config.nodeRgb}, ${node.opacity})`;
-                    context.beginPath();
-                    context.arc(node.x, node.y, node.size / 2, 0, Math.PI * 2);
-                    context.fill();
+                this.config.layers.forEach(layer => {
+                    context.save();
+                    context.filter = layer.blur > 0 ? `blur(${layer.blur}px)` : 'none';
+
+                    this.nodes.forEach(node => {
+                        if (node.layerId !== layer.id) return;
+
+                        const cursorBoost = this.cursorInfluence(node.x, node.y);
+                        const opacity = this.clamp(
+                            node.opacity + cursorBoost * 0.07,
+                            0,
+                            0.24
+                        );
+
+                        context.fillStyle = `rgba(${this.config.nodeRgb}, ${opacity})`;
+                        context.shadowColor = `rgba(${this.config.nodeRgb}, ${opacity})`;
+                        context.shadowBlur = layer.glow + cursorBoost * 9;
+                        context.beginPath();
+                        context.arc(
+                            node.x,
+                            node.y,
+                            node.radius + cursorBoost * 0.3,
+                            0,
+                            Math.PI * 2
+                        );
+                        context.fill();
+                    });
+
+                    context.restore();
                 });
-
-                context.restore();
             }
 
             draw(timestamp, animated) {
                 this.context.clearRect(0, 0, this.width, this.height);
+                this.updateCursor(animated);
                 this.updateNodes(timestamp, animated);
-                this.drawConnections(timestamp, animated);
+
+                if (
+                    animated &&
+                    timestamp - this.lastTopologyUpdate >= this.config.topologyInterval
+                ) {
+                    this.refreshTopology(timestamp);
+                }
+
+                this.drawAmbientGlows(timestamp);
+                this.drawCursorLight();
+                this.drawConnections(timestamp);
                 this.drawNodes();
             }
         }
