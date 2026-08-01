@@ -953,16 +953,6 @@
             margin-right: 0.45rem;
             color: #22d3ee;
         }
-        .hero-actions,
-        .about-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.7rem;
-        }
-        .hero-actions {
-            justify-content: center;
-            margin-top: 1.8rem;
-        }
         .site-button {
             display: inline-flex;
             align-items: center;
@@ -991,29 +981,6 @@
         }
         .site-button.primary:hover {
             background: #0e7490;
-        }
-        .hero-socials {
-            display: flex;
-            justify-content: center;
-            gap: 0.55rem;
-            margin-top: 1.25rem;
-        }
-        .hero-socials a {
-            display: grid;
-            width: 2.2rem;
-            height: 2.2rem;
-            place-items: center;
-            border: 1px solid rgba(75, 85, 99, 0.75);
-            border-radius: 0.55rem;
-            background: rgba(31, 41, 55, 0.55);
-            color: #9ca3af;
-            font-size: 0.7rem;
-            font-weight: 800;
-            text-decoration: none;
-        }
-        .hero-socials a:hover {
-            border-color: rgba(34, 211, 238, 0.5);
-            color: #67e8f9;
         }
         .hero-scroll {
             display: grid;
@@ -1075,9 +1042,6 @@
         }
         .about-copy > p + p {
             margin-top: 0.9rem;
-        }
-        .about-actions {
-            margin-top: 1.4rem;
         }
         .about-block {
             margin-top: 2rem;
@@ -1345,9 +1309,6 @@
             .certificate-grid {
                 grid-template-columns: 1fr;
             }
-            .hero-actions .site-button {
-                flex: 1 1 9rem;
-            }
         }
         @media (prefers-reduced-motion: reduce) {
             #home.hero-section::before,
@@ -1386,16 +1347,9 @@
             <p class="hero-role">AI Developer</p>
             <p class="hero-summary">Building intelligent, production-ready applications with OpenAI, LangChain, FastAPI, multimodal RAG, NLP, and workflow automation.</p>
             <div class="hero-meta">
-                <span>Gujarat, India</span>
+                <span>Surat, Gujarat, India</span>
                 <span>Kmphitech LLP</span>
                 <span>1+ Years Experience</span>
-            </div>
-            <div class="hero-actions">
-                <a class="site-button primary" href="#projects">View My Work &#8599;</a>
-            </div>
-            <div class="hero-socials" aria-label="Social profiles">
-                <a href="https://github.com/falsii" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">GH</a>
-                <a href="https://www.linkedin.com/in/falsi-jasani-3431ab222/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">in</a>
             </div>
             <a class="hero-scroll" href="#about" aria-label="Scroll to About section">↓</a>
         </div>
@@ -1415,11 +1369,6 @@
                     <p>I’m an AI Developer building intelligent, production-ready applications using OpenAI, LangChain, and FastAPI. My work spans multimodal RAG systems, NLP assistants, real-time voice AI, structured data extraction, and workflow automation.</p>
                     <p>I’m passionate about transforming business workflows into scalable AI solutions backed by dependable APIs, well-structured data, and thoughtful evaluation.</p>
 
-                    <div class="about-actions">
-                        <a class="site-button primary" href="#projects">View My Projects &#8599;</a>
-                        <a class="site-button" href="#contact">Contact Me</a>
-                    </div>
-
                     <div class="about-block">
                         <h3 class="about-block-title">Education</h3>
                         <article class="education-card">
@@ -1437,16 +1386,20 @@
                         <h3 class="about-block-title">What I Build</h3>
                         <div class="focus-list">
                             <article class="focus-card">
-                                <h4>Production AI Applications</h4>
-                                <p>RAG, multi-agent workflows, NLP systems, and structured extraction built for real users.</p>
+                                <h4>RAG &amp; Document Intelligence</h4>
+                                <p>Advanced and multimodal RAG systems with OCR, hybrid retrieval, reranking, evidence evaluation, and grounded responses.</p>
                             </article>
                             <article class="focus-card">
-                                <h4>Voice &amp; Conversational AI</h4>
-                                <p>Multilingual chat, voice, and calling experiences using LiveKit, Retell AI, Vapi, and ElevenLabs.</p>
+                                <h4>Generative AI &amp; Agentic Systems</h4>
+                                <p>LLM applications, structured outputs, tool calling, multi-agent workflows, and intelligent business automation.</p>
                             </article>
                             <article class="focus-card">
-                                <h4>Backend &amp; Business Automation</h4>
-                                <p>FastAPI services, databases, subscriptions, payments, notifications, scraping, and CRM integrations.</p>
+                                <h4>Voice &amp; Real-Time AI</h4>
+                                <p>Multilingual voice agents and conversational experiences using LiveKit, Retell AI, Vapi, and ElevenLabs.</p>
+                            </article>
+                            <article class="focus-card">
+                                <h4>AI Backend &amp; Platform Engineering</h4>
+                                <p>Production FastAPI platforms with authentication, RBAC, async databases, payments, subscriptions, background jobs, notifications, and webhooks.</p>
                             </article>
                         </div>
                     </div>
@@ -1465,7 +1418,7 @@
                         </article>
                         <article class="expertise-card">
                             <div class="expertise-heading"><span class="expertise-icon">RAG</span><h4>RAG &amp; Document Intelligence</h4></div>
-                            <div class="expertise-tags"><span>Advanced RAG</span><span>Multimodal RAG</span><span>Hybrid Search</span><span>Reranking</span><span>OCR</span><span>PGVector</span><span>ChromaDB</span><span>FAISS</span><span>LlamaIndex</span><span>RAGAS</span><span>DeepEval</span></div>
+                            <div class="expertise-tags"><span>Advanced RAG</span><span>Multimodal RAG</span><span>Hybrid Search</span><span>Reranking</span><span>OCR</span><span>PGVector</span><span>ChromaDB</span><span>FAISS</span><span>RAGAS</span><span>DeepEval</span></div>
                         </article>
                         <article class="expertise-card">
                             <div class="expertise-heading"><span class="expertise-icon">VA</span><h4>Voice &amp; Real-Time AI</h4></div>
