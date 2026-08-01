@@ -40,6 +40,7 @@
         #experience {
             position: relative;
             overflow: hidden;
+            background-color: rgba(11, 18, 32, 0.54) !important;
         }
         #experience::before {
             content: '';
@@ -313,6 +314,7 @@
         #projects {
             position: relative;
             overflow: hidden;
+            background-color: rgba(17, 24, 39, 0.58) !important;
         }
         #projects::before {
             content: '';
@@ -479,7 +481,8 @@
             margin-top: 1rem;
         }
         .project-tech-list span,
-        .modal-tech-list span {
+        .modal-tech-list span,
+        .modal-website-list span {
             padding: 0.32rem 0.55rem;
             border: 1px solid rgba(75, 85, 99, 0.68);
             border-radius: 0.42rem;
@@ -520,15 +523,29 @@
             font-weight: 750;
             cursor: pointer;
         }
+        .project-card-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+        .project-repository-link {
+            color: #93c5fd;
+            font-size: 0.75rem;
+            font-weight: 750;
+            text-decoration: none;
+        }
         .project-details-button::after {
             content: '↗';
             margin-left: 0.35rem;
         }
         .project-details-button:hover,
-        .project-details-button:focus-visible {
+        .project-details-button:focus-visible,
+        .project-repository-link:hover,
+        .project-repository-link:focus-visible {
             color: #cffafe;
         }
         .project-details-button:focus-visible,
+        .project-repository-link:focus-visible,
         .project-modal-close:focus-visible,
         .project-demo-link:focus-visible {
             outline: 2px solid #22d3ee;
@@ -624,10 +641,16 @@
         .modal-section p + p {
             margin-top: 0.75rem;
         }
-        .modal-tech-list {
+        .modal-tech-list,
+        .modal-website-list {
             display: flex;
             flex-wrap: wrap;
             gap: 0.45rem;
+        }
+        .modal-website-list span {
+            border-color: rgba(34, 211, 238, 0.28);
+            background: rgba(8, 145, 178, 0.12);
+            color: #cffafe;
         }
         .modal-feature-grid {
             display: grid;
@@ -713,7 +736,43 @@
             scroll-padding-top: 4.5rem;
         }
         body {
+            min-height: 100%;
+            overflow-x: hidden;
+            background: #0B1220 !important;
             color: #d1d5db;
+        }
+        .page-neural-grid {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background:
+                linear-gradient(rgba(96, 165, 250, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(96, 165, 250, 0.035) 1px, transparent 1px),
+                radial-gradient(circle at 20% 24%, rgba(56, 189, 248, 0.05), transparent 34%),
+                radial-gradient(circle at 78% 34%, rgba(56, 189, 248, 0.045), transparent 32%),
+                radial-gradient(circle at 52% 78%, rgba(56, 189, 248, 0.035), transparent 36%);
+            background-size: 42px 42px, 42px 42px, auto, auto, auto;
+            pointer-events: none;
+        }
+        .page-neural-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            display: block;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+        }
+        .site-nav,
+        .hero-section,
+        .about-section,
+        #experience,
+        #projects,
+        .certificates-section,
+        .contact-section,
+        .site-footer {
+            position: relative;
+            z-index: 2;
         }
         .site-nav {
             position: sticky;
@@ -793,7 +852,7 @@
             min-height: calc(100svh - 4rem);
             place-items: center;
             overflow: hidden;
-            background-color: #0B1220;
+            background-color: rgba(11, 18, 32, 0.12);
             background-image: none;
             isolation: isolate;
         }
@@ -802,12 +861,8 @@
             z-index: 0;
             width: 100%;
             height: 100%;
-            background:
-                linear-gradient(rgba(96, 165, 250, 0.035) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(96, 165, 250, 0.035) 1px, transparent 1px);
-            background-size: 42px 42px, 42px 42px;
-            background-position: 0 0, 0 0;
-            animation: heroGridDrift 18s linear infinite;
+            background: transparent;
+            pointer-events: none;
         }
         #home.hero-section::after {
             content: '';
@@ -827,16 +882,11 @@
             inset: 0;
             z-index: 2 !important;
             overflow: hidden;
-            background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.035), transparent 38%);
-            pointer-events: none;
-        }
-        .hero-neural-canvas {
-            position: absolute !important;
-            inset: 0;
-            z-index: 1 !important;
-            display: block;
-            width: 100%;
-            height: 100%;
+            background:
+                radial-gradient(circle at 22% 28%, rgba(56, 189, 248, 0.025), transparent 34%),
+                radial-gradient(circle at 72% 36%, rgba(56, 189, 248, 0.022), transparent 32%),
+                radial-gradient(circle at 52% 78%, rgba(56, 189, 248, 0.018), transparent 30%),
+                radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.03), transparent 38%);
             pointer-events: none;
         }
         .hero-content {
@@ -977,11 +1027,6 @@
             text-decoration: none;
             animation: heroScrollBounce 2.6s ease-in-out infinite;
         }
-        @keyframes heroGridDrift {
-            to {
-                background-position: 42px 42px, 42px 42px;
-            }
-        }
         @keyframes heroScrollBounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(0.35rem); }
@@ -991,7 +1036,7 @@
         .about-section {
             position: relative;
             padding: 6rem 0;
-            background: #1f2937;
+            background: rgba(17, 24, 39, 0.58);
         }
         .about-wrap,
         .certificates-wrap,
@@ -1168,7 +1213,7 @@
         /* Certificates and contact */
         .certificates-section {
             padding: 6rem 0;
-            background: #111827;
+            background: rgba(11, 18, 32, 0.54);
         }
         .certificate-grid {
             display: grid;
@@ -1207,7 +1252,7 @@
         }
         .contact-section {
             padding: 5rem 0;
-            background: #1f2937;
+            background: rgba(17, 24, 39, 0.62);
         }
         .contact-card {
             display: grid;
@@ -1243,7 +1288,7 @@
         .site-footer {
             padding: 1.5rem 1rem;
             border-top: 1px solid rgba(75, 85, 99, 0.55);
-            background: #030712;
+            background: rgba(3, 7, 18, 0.82);
             color: #6b7280;
             text-align: center;
             font-size: 0.72rem;
@@ -1313,6 +1358,9 @@
     </style>
 </head>
 <body class="bg-gray-900">
+    <div class="page-neural-grid" aria-hidden="true"></div>
+    <canvas class="page-neural-canvas" id="hero-neural-canvas" aria-hidden="true"></canvas>
+
     <!-- Navigation -->
     <nav class="site-nav" aria-label="Primary navigation">
         <div class="nav-inner">
@@ -1331,7 +1379,6 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero-section">
-        <canvas class="hero-neural-canvas" id="hero-neural-canvas" aria-hidden="true"></canvas>
         <div class="hero-background" aria-hidden="true"></div>
         <div class="hero-content">
             <span class="hero-kicker">Available for impactful AI work</span>
@@ -1345,12 +1392,10 @@
             </div>
             <div class="hero-actions">
                 <a class="site-button primary" href="#projects">View My Work ↗</a>
-                <a class="site-button" href="#contact">Contact Me</a>
             </div>
             <div class="hero-socials" aria-label="Social profiles">
                 <a href="https://github.com/falsii" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">GH</a>
                 <a href="https://www.linkedin.com/in/falsi-jasani-3431ab222/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">in</a>
-                <a href="mailto:falsijasani88@gmail.com" aria-label="Email Falsi Jasani">@</a>
             </div>
             <a class="hero-scroll" href="#about" aria-label="Scroll to About section">↓</a>
         </div>
@@ -1411,28 +1456,36 @@
                     <h3 class="about-block-title">Technical Expertise</h3>
                     <div class="expertise-list">
                         <article class="expertise-card">
-                            <div class="expertise-heading"><span class="expertise-icon">&lt;/&gt;</span><h4>Programming &amp; Backend</h4></div>
-                            <div class="expertise-tags"><span>Python</span><span>FastAPI</span><span>Flask</span><span>Django</span><span>SQL</span><span>REST APIs</span></div>
+                            <div class="expertise-heading"><span class="expertise-icon">&lt;/&gt;</span><h4>Backend Engineering</h4></div>
+                            <div class="expertise-tags"><span>Python</span><span>FastAPI</span><span>REST APIs</span><span>Pydantic</span><span>SQLAlchemy</span><span>Async APIs</span><span>JWT &amp; RBAC</span><span>Background Jobs</span></div>
                         </article>
                         <article class="expertise-card">
-                            <div class="expertise-heading"><span class="expertise-icon">AI</span><h4>AI &amp; Machine Learning</h4></div>
-                            <div class="expertise-tags"><span>PyTorch</span><span>TensorFlow</span><span>Scikit-learn</span><span>LangChain</span><span>LlamaIndex</span><span>LangGraph</span><span>CrewAI</span><span>RAG</span><span>RAGAS</span><span>DeepEval</span></div>
+                            <div class="expertise-heading"><span class="expertise-icon">AI</span><h4>Generative AI &amp; Agents</h4></div>
+                            <div class="expertise-tags"><span>OpenAI API</span><span>LangChain</span><span>LangGraph</span><span>CrewAI</span><span>Structured Outputs</span><span>Tool Calling</span><span>Prompt Engineering</span></div>
                         </article>
                         <article class="expertise-card">
-                            <div class="expertise-heading"><span class="expertise-icon">CV</span><h4>Computer Vision &amp; OCR</h4></div>
-                            <div class="expertise-tags"><span>OpenCV</span><span>OCR</span><span>CNNs</span><span>Object Detection</span></div>
+                            <div class="expertise-heading"><span class="expertise-icon">RAG</span><h4>RAG &amp; Document Intelligence</h4></div>
+                            <div class="expertise-tags"><span>Advanced RAG</span><span>Multimodal RAG</span><span>Hybrid Search</span><span>Reranking</span><span>OCR</span><span>PGVector</span><span>ChromaDB</span><span>FAISS</span><span>LlamaIndex</span><span>RAGAS</span><span>DeepEval</span></div>
                         </article>
                         <article class="expertise-card">
-                            <div class="expertise-heading"><span class="expertise-icon">DA</span><h4>Data &amp; Automation</h4></div>
-                            <div class="expertise-tags"><span>Pandas</span><span>NumPy</span><span>Matplotlib</span><span>Selenium</span><span>ETL Pipelines</span><span>Power BI</span></div>
+                            <div class="expertise-heading"><span class="expertise-icon">VA</span><h4>Voice &amp; Real-Time AI</h4></div>
+                            <div class="expertise-tags"><span>LiveKit</span><span>ElevenLabs</span><span>Retell AI</span><span>Vapi</span><span>Voice Agents</span><span>Text-to-Speech</span></div>
                         </article>
                         <article class="expertise-card">
-                            <div class="expertise-heading"><span class="expertise-icon">DB</span><h4>Databases &amp; Vector Stores</h4></div>
-                            <div class="expertise-tags"><span>PostgreSQL</span><span>SQLite</span><span>Firestore</span><span>MongoDB</span><span>ChromaDB</span><span>FAISS</span></div>
+                            <div class="expertise-heading"><span class="expertise-icon">DB</span><h4>Databases &amp; Infrastructure</h4></div>
+                            <div class="expertise-tags"><span>PostgreSQL</span><span>MongoDB</span><span>Redis</span><span>SQLite</span><span>Firebase</span><span>Docker</span><span>Alembic</span></div>
                         </article>
                         <article class="expertise-card">
-                            <div class="expertise-heading"><span class="expertise-icon">CL</span><h4>Cloud &amp; Integrations</h4></div>
-                            <div class="expertise-tags"><span>Firebase FCM</span><span>LiveKit</span><span>Zapier MCP</span><span>Git</span><span>GitHub</span><span>Stripe</span></div>
+                            <div class="expertise-heading"><span class="expertise-icon">IA</span><h4>Integrations &amp; Automation</h4></div>
+                            <div class="expertise-tags"><span>Stripe</span><span>Firebase FCM</span><span>Webhooks</span><span>Zapier MCP</span><span>Selenium</span><span>Apple/Google Subscriptions</span><span>Git &amp; GitHub</span></div>
+                        </article>
+                        <article class="expertise-card">
+                            <div class="expertise-heading"><span class="expertise-icon">ML</span><h4>Additional ML &amp; NLP</h4></div>
+                            <div class="expertise-tags"><span>PyTorch</span><span>NLTK</span><span>TF-IDF</span><span>LSTM</span><span>YOLOv8</span><span>OpenCV</span></div>
+                        </article>
+                        <article class="expertise-card">
+                            <div class="expertise-heading"><span class="expertise-icon">DA</span><h4>Additional ML &amp; Data</h4></div>
+                            <div class="expertise-tags"><span>Scikit-learn</span><span>Pandas</span><span>NumPy</span><span>Matplotlib</span><span>Power BI</span><span>ETL Pipelines</span></div>
                         </article>
                     </div>
                 </div>
@@ -1623,7 +1676,7 @@
             <div class="project-group">
                 <div class="project-group-heading">
                     <h3>Professional Projects</h3>
-                    <span>10</span>
+                    <span>9</span>
                 </div>
                 <div class="project-grid">
                     <article class="portfolio-project-card">
@@ -1762,7 +1815,7 @@
                         <h4>Ubun.one</h4>
                         <p class="project-card-description">A multilingual AI chat platform with voice responses, subscriptions, payments, and administrator controls.</p>
                         <div class="project-tech-list">
-                            <span>OpenAI</span><span>ElevenLabs</span><span>FastAPI</span><span>Stripe</span>
+                            <span>OpenAI</span><span>ElevenLabs</span><span>FastAPI</span><span>Stripe</span><span>Advanced RAG</span><span>LiveKit</span>
                         </div>
                         <div class="project-card-footer">
                             <span class="project-type">Professional</span>
@@ -1770,19 +1823,101 @@
                         </div>
                     </article>
 
+                </div>
+            </div>
+
+            <div class="project-group">
+                <div class="project-group-heading">
+                    <h3>Personal Projects</h3>
+                    <span>5</span>
+                </div>
+                <div class="project-grid">
                     <article class="portfolio-project-card">
                         <div class="project-card-top">
                             <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
-                            <span class="project-category">AI Automation</span>
+                            <span class="project-category">Advanced RAG</span>
                         </div>
-                        <h4>Referu.AI</h4>
-                        <p class="project-card-description">An AI assistant that pre-screens legal clients, matches expertise, and automates consultation scheduling.</p>
+                        <h4>Advanced RAG API</h4>
+                        <p class="project-card-description">A FastAPI-based document intelligence system with advanced retrieval, evidence evaluation, and reliability-focused RAG workflows.</p>
                         <div class="project-tech-list">
-                            <span>LangChain</span><span>OpenAI</span><span>Zapier</span><span>CRM</span>
+                            <span>FastAPI</span><span>LangChain</span><span>LangGraph</span><span>PGVector</span>
                         </div>
                         <div class="project-card-footer">
-                            <span class="project-type">Professional</span>
-                            <button class="project-details-button" type="button" data-project="referu">Details</button>
+                            <span class="project-type">Personal</span>
+                            <div class="project-card-actions">
+                                <a class="project-repository-link" href="https://github.com/falsii/RAG" target="_blank" rel="noopener noreferrer" aria-label="View Advanced RAG API on GitHub">GitHub &#8599;</a>
+                                <button class="project-details-button" type="button" data-project="advancedrag">Details</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">Backend Platform</span>
+                        </div>
+                        <h4>FastAPI Authentication &amp; Subscription Management Backend</h4>
+                        <p class="project-card-description">A scalable REST API with secure authentication, multi-provider subscriptions, notifications, rate limiting, and background processing.</p>
+                        <div class="project-tech-list">
+                            <span>FastAPI</span><span>PostgreSQL</span><span>Redis</span><span>Stripe</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Personal</span>
+                            <div class="project-card-actions">
+                                <a class="project-repository-link" href="https://github.com/falsii/fastapi-Auth" target="_blank" rel="noopener noreferrer" aria-label="View FastAPI Authentication and Subscription Management Backend on GitHub">GitHub &#8599;</a>
+                                <button class="project-details-button" type="button" data-project="fastapiauth">Details</button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">Flutter Prototype</span>
+                        </div>
+                        <h4>SoulEase &mdash; AI-Generated Mental Wellness App</h4>
+                        <p class="project-card-description">A fully functional cross-platform mental wellness prototype created through an AI-first development workflow using prompt engineering.</p>
+                        <div class="project-tech-list">
+                            <span>Flutter</span><span>Dart</span><span>OpenAI Codex</span><span>Claude Code</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Personal</span>
+                            <button class="project-details-button" type="button" data-project="soulease">Details</button>
+                        </div>
+                    </article>
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">Multi-Agent Legal AI</span>
+                        </div>
+                        <h4>crewai-legal-intake</h4>
+                        <p class="project-card-description">An AI-powered legal intake platform orchestrating multi-agent conversations, compliance checks, and automated consultation scheduling.</p>
+                        <div class="project-tech-list">
+                            <span>FastAPI</span><span>CrewAI</span><span>SQLAlchemy</span><span>Zapier MCP</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Personal</span>
+                            <div class="project-card-actions">
+                                <a class="project-repository-link" href="https://github.com/falsii/crewai-legal-intake-agent" target="_blank" rel="noopener noreferrer" aria-label="View crewai-legal-intake on GitHub">GitHub &#8599;</a>
+                                <button class="project-details-button" type="button" data-project="crewailegalintake">Details</button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">Offline NLP</span>
+                        </div>
+                        <h4>NLP-chatbot</h4>
+                        <p class="project-card-description">An offline support chatbot with custom PyTorch intent classifiers, TF-IDF retrieval, safety handling, and model evaluation.</p>
+                        <div class="project-tech-list">
+                            <span>Python</span><span>PyTorch</span><span>FastAPI</span><span>Streamlit</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Personal</span>
+                            <div class="project-card-actions">
+                                <a class="project-repository-link" href="https://github.com/falsii/NLP-chatbot" target="_blank" rel="noopener noreferrer" aria-label="View NLP-chatbot on GitHub">GitHub &#8599;</a>
+                                <button class="project-details-button" type="button" data-project="nlpchatbot">Details</button>
+                            </div>
                         </div>
                     </article>
                 </div>
@@ -1865,6 +2000,10 @@
                     <h4>Technologies</h4>
                     <div class="modal-tech-list" id="project-modal-technologies"></div>
                 </div>
+                <div class="modal-section" id="project-modal-websites-section" hidden>
+                    <h4>Websites Scraped</h4>
+                    <div class="modal-website-list" id="project-modal-websites"></div>
+                </div>
                 <div class="modal-section">
                     <h4>Key Features</h4>
                     <ul class="modal-feature-grid" id="project-modal-features"></ul>
@@ -1934,13 +2073,13 @@
             nodeColor: '#38BDF8',
             nodeRgb: '56, 189, 248',
             lineColor: 'rgba(56, 189, 248, 0.14)',
-            lineOpacity: 0.14,
+            lineOpacity: 0.25,
             glowColor: 'rgba(56, 189, 248, 0.2)',
-            glowOpacity: 0.2,
+            glowOpacity: 0.32,
             lineWidth: 1,
             spatialCellSize: 152,
-            structuralLineFactor: 0.7,
-            signalOpacity: 0.24,
+            structuralLineFactor: 0.88,
+            signalOpacity: 0.36,
             signalRadius: 1.5,
             signalDurationMin: 7000,
             signalDurationMax: 11000,
@@ -1952,18 +2091,21 @@
             cursorSpring: 0.052,
             cursorDamping: 0.84,
             cursorMaxOffset: 52,
-            topologyInterval: 800,
             connectionFadeMin: 500,
             connectionFadeMax: 1000,
-            maxDevicePixelRatio: 2,
+            idleFrameRate: 20,
+            mobileBreakpoint: 768,
+            desktopDevicePixelRatio: 1.25,
+            mobileDevicePixelRatio: 1,
             layers: Object.freeze([
                 Object.freeze({
                     id: 'far',
-                    count: 10,
-                    radius: [3.2, 4.6],
-                    opacity: [0.065, 0.105],
-                    movement: 18,
-                    noiseSpeed: 0.000018,
+                    count: 8,
+                    mobileCount: 5,
+                    radius: [3.6, 5.1],
+                    opacity: [0.13, 0.19],
+                    movement: 22,
+                    noiseSpeed: 0.000022,
                     connectionDistance: 152,
                     disconnectMultiplier: 1.24,
                     maxConnections: 2,
@@ -1974,11 +2116,12 @@
                 }),
                 Object.freeze({
                     id: 'middle',
-                    count: 20,
-                    radius: [2.25, 3.3],
-                    opacity: [0.085, 0.14],
-                    movement: 22,
-                    noiseSpeed: 0.000026,
+                    count: 14,
+                    mobileCount: 9,
+                    radius: [2.55, 3.7],
+                    opacity: [0.16, 0.23],
+                    movement: 26,
+                    noiseSpeed: 0.000031,
                     connectionDistance: 142,
                     disconnectMultiplier: 1.22,
                     maxConnections: 3,
@@ -1989,11 +2132,12 @@
                 }),
                 Object.freeze({
                     id: 'near',
-                    count: 35,
-                    radius: [1.45, 2.35],
-                    opacity: [0.11, 0.19],
-                    movement: 27,
-                    noiseSpeed: 0.000036,
+                    count: 24,
+                    mobileCount: 14,
+                    radius: [1.65, 2.65],
+                    opacity: [0.19, 0.29],
+                    movement: 32,
+                    noiseSpeed: 0.000043,
                     connectionDistance: 132,
                     disconnectMultiplier: 1.2,
                     maxConnections: 4,
@@ -2039,20 +2183,6 @@
                 Object.freeze({
                     id: 'lower-left', x: 0.24, y: 0.76, count: 6,
                     spread: 0.088, stretchX: 1.1, stretchY: 0.9, seed: 109, bridgeCount: 3
-                })
-            ]),
-            ambientGlows: Object.freeze([
-                Object.freeze({
-                    x: 0.22, y: 0.28, radius: 0.44, drift: 0.085,
-                    duration: 42000, opacityFactor: 0.1, seed: 12
-                }),
-                Object.freeze({
-                    x: 0.72, y: 0.36, radius: 0.38, drift: 0.07,
-                    duration: 56000, opacityFactor: 0.085, seed: 47
-                }),
-                Object.freeze({
-                    x: 0.52, y: 0.78, radius: 0.34, drift: 0.06,
-                    duration: 33000, opacityFactor: 0.07, seed: 83
                 })
             ])
         });
@@ -2165,6 +2295,8 @@
                 this.canvas = canvas;
                 this.container = container;
                 this.config = config;
+                this.usesViewport = canvas.classList.contains('page-neural-canvas');
+                this.pointerTarget = this.usesViewport ? document.documentElement : container;
                 this.context = canvas.getContext('2d', {
                     alpha: true,
                     desynchronized: true
@@ -2179,6 +2311,8 @@
                 this.elapsedTime = 0;
                 this.lastFrameTimestamp = null;
                 this.lastNodeUpdateTime = null;
+                this.lastRenderTimestamp = 0;
+                this.isVisible = true;
                 this.lastTopologyUpdate = -Infinity;
                 this.cursor = {
                     x: 0,
@@ -2197,13 +2331,14 @@
                 this.handlePointerLeave = this.handlePointerLeave.bind(this);
                 this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
                 this.handleMotionPreference = this.handleMotionPreference.bind(this);
+                this.handleIntersection = this.handleIntersection.bind(this);
             }
 
             init() {
                 if (!this.context) return;
 
-                this.container.addEventListener('pointermove', this.handlePointerMove, { passive: true });
-                this.container.addEventListener('pointerleave', this.handlePointerLeave);
+                this.pointerTarget.addEventListener('pointermove', this.handlePointerMove, { passive: true });
+                this.pointerTarget.addEventListener('pointerleave', this.handlePointerLeave);
                 document.addEventListener('visibilitychange', this.handleVisibilityChange);
 
                 if (typeof this.reducedMotion.addEventListener === 'function') {
@@ -2212,11 +2347,21 @@
                     this.reducedMotion.addListener(this.handleMotionPreference);
                 }
 
-                if ('ResizeObserver' in window) {
+                if (this.usesViewport) {
+                    window.addEventListener('resize', this.resize, { passive: true });
+                } else if ('ResizeObserver' in window) {
                     this.resizeObserver = new ResizeObserver(this.resize);
                     this.resizeObserver.observe(this.container);
                 } else {
                     window.addEventListener('resize', this.resize, { passive: true });
+                }
+
+                if (!this.usesViewport && 'IntersectionObserver' in window) {
+                    this.intersectionObserver = new IntersectionObserver(
+                        this.handleIntersection,
+                        { rootMargin: '80px 0px', threshold: 0.01 }
+                    );
+                    this.intersectionObserver.observe(this.container);
                 }
 
                 this.resize();
@@ -2231,13 +2376,29 @@
                 return normalized * normalized * (3 - 2 * normalized);
             }
 
+            getBounds() {
+                if (this.usesViewport) {
+                    return {
+                        left: 0,
+                        top: 0,
+                        width: window.innerWidth || document.documentElement.clientWidth,
+                        height: window.innerHeight || document.documentElement.clientHeight
+                    };
+                }
+
+                return this.container.getBoundingClientRect();
+            }
+
             resize() {
-                const bounds = this.container.getBoundingClientRect();
+                const bounds = this.getBounds();
                 const nextWidth = Math.max(1, Math.round(bounds.width));
                 const nextHeight = Math.max(1, Math.round(bounds.height));
+                const maximumPixelRatio = nextWidth <= this.config.mobileBreakpoint
+                    ? this.config.mobileDevicePixelRatio
+                    : this.config.desktopDevicePixelRatio;
                 const pixelRatio = Math.min(
                     window.devicePixelRatio || 1,
-                    this.config.maxDevicePixelRatio
+                    maximumPixelRatio
                 );
 
                 if (
@@ -2271,6 +2432,19 @@
                     Math.imul(this.width, 31) +
                     Math.imul(this.height, 17);
                 const random = new SeededRandom(layoutSeed);
+                const isMobile = this.width <= this.config.mobileBreakpoint;
+                const activeLayerCounts = this.config.layers.map(layer =>
+                    isMobile ? layer.mobileCount : layer.count
+                );
+                const totalNodeCount = activeLayerCounts.reduce((sum, count) => sum + count, 0);
+                const totalClusterWeight = this.config.clusters.reduce(
+                    (sum, cluster) => sum + cluster.count,
+                    0
+                );
+                const clusterAllocations = this.config.clusters.map((cluster, clusterIndex) => {
+                    const exactCount = totalNodeCount * cluster.count / totalClusterWeight;
+                    return { cluster, clusterIndex, count: Math.max(1, Math.floor(exactCount)), remainder: exactCount % 1 };
+                });
                 const clusterSlots = [];
                 const assignedPerCluster = new Map();
                 let nextNodeId = 0;
@@ -2280,8 +2454,22 @@
                 this.connections.clear();
                 this.lastNodeUpdateTime = null;
 
-                this.config.clusters.forEach((cluster, clusterIndex) => {
-                    for (let index = 0; index < cluster.count; index += 1) {
+                let allocatedNodeCount = clusterAllocations.reduce(
+                    (sum, allocation) => sum + allocation.count,
+                    0
+                );
+                const allocationOrder = [...clusterAllocations].sort(
+                    (first, second) => second.remainder - first.remainder
+                );
+                let allocationCursor = 0;
+                while (allocatedNodeCount < totalNodeCount) {
+                    allocationOrder[allocationCursor % allocationOrder.length].count += 1;
+                    allocatedNodeCount += 1;
+                    allocationCursor += 1;
+                }
+
+                clusterAllocations.forEach(({ cluster, clusterIndex, count }) => {
+                    for (let index = 0; index < count; index += 1) {
                         clusterSlots.push(clusterIndex);
                     }
                     assignedPerCluster.set(cluster.id, 0);
@@ -2298,7 +2486,7 @@
                 this.config.layers.forEach((layer, layerIndex) => {
                     const safeMargin = layer.movement * 1.4 + layer.radius[1] + 4;
 
-                    for (let index = 0; index < layer.count; index += 1) {
+                    for (let index = 0; index < activeLayerCounts[layerIndex]; index += 1) {
                         const clusterIndex = clusterSlots[nextNodeId % clusterSlots.length];
                         const cluster = this.config.clusters[clusterIndex];
                         const clusterOrder = assignedPerCluster.get(cluster.id);
@@ -2354,7 +2542,7 @@
             handlePointerMove(event) {
                 if (this.reducedMotion.matches) return;
 
-                const bounds = this.container.getBoundingClientRect();
+                const bounds = this.getBounds();
                 this.cursor.targetX = event.clientX - bounds.left;
                 this.cursor.targetY = event.clientY - bounds.top;
 
@@ -2379,6 +2567,18 @@
                 }
             }
 
+            handleIntersection(entries) {
+                const nextVisibility = entries.some(entry => entry.isIntersecting);
+                if (nextVisibility === this.isVisible) return;
+
+                this.isVisible = nextVisibility;
+                if (this.isVisible && !document.hidden && !this.reducedMotion.matches) {
+                    this.start();
+                } else {
+                    this.stop();
+                }
+            }
+
             handleMotionPreference(event) {
                 if (event.matches) {
                     this.stop();
@@ -2390,10 +2590,20 @@
                 }
             }
 
+            hasInteractionMotion() {
+                return this.cursor.active ||
+                    this.cursor.strength > 0.01 ||
+                    this.nodes.some(node =>
+                        Math.hypot(node.interactionVelocityX, node.interactionVelocityY) > 0.025 ||
+                        Math.hypot(node.interactionX, node.interactionY) > 0.12
+                    );
+            }
+
             start() {
                 if (
                     this.frameId !== null ||
                     document.hidden ||
+                    !this.isVisible ||
                     this.reducedMotion.matches
                 ) {
                     return;
@@ -2410,6 +2620,7 @@
 
                 // Resetting this value prevents a jump after an inactive tab resumes.
                 this.lastFrameTimestamp = null;
+                this.lastRenderTimestamp = 0;
             }
 
             animate(timestamp) {
@@ -2423,7 +2634,18 @@
                     this.lastFrameTimestamp = timestamp;
                 }
 
-                this.draw(this.elapsedTime, true);
+                const targetFrameRate = this.hasInteractionMotion()
+                    ? 60
+                    : this.config.idleFrameRate;
+                const frameInterval = 1000 / targetFrameRate;
+                const shouldRender = this.lastRenderTimestamp === 0 ||
+                    timestamp - this.lastRenderTimestamp >= frameInterval;
+
+                if (shouldRender) {
+                    this.draw(this.elapsedTime, true);
+                    this.lastRenderTimestamp = timestamp;
+                }
+
                 this.start();
             }
 
@@ -2450,37 +2672,45 @@
                     ? 16.667
                     : timestamp - this.lastNodeUpdateTime;
                 const frameScale = animated
-                    ? this.clamp(elapsedSinceUpdate / 16.667, 0, 2)
+                    ? this.clamp(elapsedSinceUpdate / 16.667, 0, 3.5)
                     : 0;
                 this.lastNodeUpdateTime = timestamp;
+                const clusterDriftCache = new Map();
 
                 this.nodes.forEach(node => {
                     const layer = this.config.layers[node.layerIndex];
                     const cluster = this.config.clusters[node.clusterIndex];
                     const time = timestamp * layer.noiseSpeed;
-                    const clusterTime = time * 0.7;
-                    const groupMovement = layer.movement * 0.48;
-                    const groupX = this.noise.noise(
-                        cluster.seed,
-                        17.3,
-                        clusterTime
-                    ) * groupMovement;
-                    const groupY = this.noise.noise(
-                        29.1,
-                        cluster.seed,
-                        clusterTime + 43.8
-                    ) * groupMovement;
+                    const driftKey = `${node.clusterIndex}:${node.layerIndex}`;
+                    let groupDrift = clusterDriftCache.get(driftKey);
+                    if (!groupDrift) {
+                        const clusterTime = time * 0.7;
+                        const groupMovement = layer.movement * 0.48;
+                        groupDrift = {
+                            x: this.noise.noise(
+                                cluster.seed,
+                                17.3,
+                                clusterTime
+                            ) * groupMovement,
+                            y: this.noise.noise(
+                                29.1,
+                                cluster.seed,
+                                clusterTime + 43.8
+                            ) * groupMovement
+                        };
+                        clusterDriftCache.set(driftKey, groupDrift);
+                    }
 
                     node.naturalX = node.baseX + this.noise.noise(
                         node.noiseX,
                         node.noiseY,
                         node.noiseZ + time
-                    ) * layer.movement * 0.84 + groupX;
+                    ) * layer.movement * 0.84 + groupDrift.x;
                     node.naturalY = node.baseY + this.noise.noise(
                         node.noiseY + 37.4,
                         node.noiseZ - 19.2,
                         node.noiseX + time
-                    ) * layer.movement * 0.84 + groupY;
+                    ) * layer.movement * 0.84 + groupDrift.y;
 
                     if (!animated) {
                         node.interactionX = 0;
@@ -2885,34 +3115,6 @@
                     this.cursor.strength;
             }
 
-            drawAmbientGlows(timestamp) {
-                const context = this.context;
-                const longestSide = Math.max(this.width, this.height);
-
-                context.save();
-                context.globalCompositeOperation = 'screen';
-
-                this.config.ambientGlows.forEach(glow => {
-                    const time = timestamp / glow.duration;
-                    const driftX = this.noise.noise(glow.seed, 9.7, time) *
-                        this.width * glow.drift;
-                    const driftY = this.noise.noise(4.1, glow.seed, time + 31.6) *
-                        this.height * glow.drift;
-                    const x = this.width * glow.x + driftX;
-                    const y = this.height * glow.y + driftY;
-                    const radius = longestSide * glow.radius;
-                    const alpha = this.config.glowOpacity * glow.opacityFactor;
-                    const gradient = context.createRadialGradient(x, y, 0, x, y, radius);
-
-                    gradient.addColorStop(0, `rgba(${this.config.nodeRgb}, ${alpha})`);
-                    gradient.addColorStop(0.5, `rgba(${this.config.nodeRgb}, ${alpha * 0.35})`);
-                    gradient.addColorStop(1, `rgba(${this.config.nodeRgb}, 0)`);
-                    context.fillStyle = gradient;
-                    context.fillRect(0, 0, this.width, this.height);
-                });
-
-                context.restore();
-            }
 
             drawCursorLight() {
                 if (this.cursor.strength <= 0.001 || !this.cursor.initialized) return;
@@ -2978,15 +3180,23 @@
                     connection.opacity;
 
                 context.save();
-                context.globalCompositeOperation = 'screen';
-                context.fillStyle = `rgba(${this.config.nodeRgb}, ${opacity})`;
-                context.shadowColor = this.config.nodeColor;
-                context.shadowBlur = 11;
+                context.fillStyle = `rgba(${this.config.nodeRgb}, ${opacity * 0.18})`;
                 context.beginPath();
                 context.arc(
                     x,
                     y,
-                    this.config.signalRadius + endpointFade * 0.65,
+                    (this.config.signalRadius + endpointFade * 0.65) * 2.4,
+                    0,
+                    Math.PI * 2
+                );
+                context.fill();
+
+                context.fillStyle = `rgba(${this.config.nodeRgb}, ${opacity})`;
+                context.beginPath();
+                context.arc(
+                    x,
+                    y,
+                    this.config.signalRadius + endpointFade * 0.45,
                     0,
                     Math.PI * 2
                 );
@@ -2996,85 +3206,130 @@
 
             drawConnections(timestamp) {
                 const context = this.context;
-                this.updateConnectionTransitions(timestamp);
+                const structural = [];
+                const localByLayer = this.config.layers.map(() => []);
+                const allConnections = [];
 
-                context.save();
-                context.lineWidth = this.config.lineWidth;
-                context.lineCap = 'round';
-
-                this.connections.forEach(connection => {
-                    if (connection.opacity <= 0.001) return;
+                const createGeometry = connection => {
+                    if (connection.opacity <= 0.001) return null;
 
                     const firstNode = this.nodeById.get(connection.firstId);
                     const secondNode = this.nodeById.get(connection.secondId);
-                    if (!firstNode || !secondNode) return;
+                    if (!firstNode || !secondNode) return null;
 
-                    const layer = this.config.layers[connection.layerIndex];
-                    const distance = Math.hypot(
-                        secondNode.x - firstNode.x,
-                        secondNode.y - firstNode.y
-                    );
-                    const disconnectDistance = connection.structural
-                        ? Math.max(this.width, this.height)
-                        : connection.connectionDistance * connection.disconnectMultiplier;
-                    const distanceFactor = connection.structural
-                        ? 0.82
-                        : this.clamp(
-                            1 - (distance / disconnectDistance) * 0.7,
-                            0.18,
-                            1
-                        );
+                    const deltaX = secondNode.x - firstNode.x;
+                    const deltaY = secondNode.y - firstNode.y;
+                    const distance = Math.hypot(deltaX, deltaY);
                     const midpointX = (firstNode.x + secondNode.x) / 2;
                     const midpointY = (firstNode.y + secondNode.y) / 2;
-                    const cursorBoost = this.cursorInfluence(midpointX, midpointY);
-                    const opacity = this.config.lineOpacity *
-                        (connection.structural
-                            ? this.config.structuralLineFactor
-                            : layer.lineOpacityFactor) *
-                        distanceFactor *
-                        connection.opacity *
-                        (1 + cursorBoost * 0.72);
-
-                    context.lineWidth = connection.structural ? 0.75 : this.config.lineWidth;
-                    context.strokeStyle = `rgba(${this.config.nodeRgb}, ${opacity})`;
-                    context.shadowColor = `rgba(${this.config.nodeRgb}, ${opacity})`;
-                    context.shadowBlur = cursorBoost * 7;
-                    context.beginPath();
-                    context.moveTo(firstNode.x, firstNode.y);
                     let controlX = midpointX;
                     let controlY = midpointY;
 
-                    if (connection.structural) {
-                        const normalX = distance > 0
-                            ? -(secondNode.y - firstNode.y) / distance
-                            : 0;
-                        const normalY = distance > 0
-                            ? (secondNode.x - firstNode.x) / distance
-                            : 0;
+                    if (connection.structural && distance > 0) {
+                        const normalX = -deltaY / distance;
+                        const normalY = deltaX / distance;
                         const pairSeed =
                             (connection.firstId * 17 + connection.secondId * 29) % 11;
                         const bend = (pairSeed - 5) * Math.min(distance * 0.006, 2.4);
-                        controlX = midpointX + normalX * bend;
-                        controlY = midpointY + normalY * bend;
-
-                        context.quadraticCurveTo(
-                            controlX,
-                            controlY,
-                            secondNode.x,
-                            secondNode.y
-                        );
-                    } else {
-                        context.lineTo(secondNode.x, secondNode.y);
+                        controlX += normalX * bend;
+                        controlY += normalY * bend;
                     }
 
-                    context.stroke();
-                    this.drawStructuralSignal(
-                        context,
+                    return {
                         connection,
                         firstNode,
                         secondNode,
+                        midpointX,
+                        midpointY,
                         controlX,
-                        controlY,
+                        controlY
+                    };
+                };
+
+                const appendGeometry = geometry => {
+                    context.moveTo(geometry.firstNode.x, geometry.firstNode.y);
+                    if (geometry.connection.structural) {
+                        context.quadraticCurveTo(
+                            geometry.controlX,
+                            geometry.controlY,
+                            geometry.secondNode.x,
+                            geometry.secondNode.y
+                        );
+                    } else {
+                        context.lineTo(geometry.secondNode.x, geometry.secondNode.y);
+                    }
+                };
+
+                this.connections.forEach(connection => {
+                    const geometry = createGeometry(connection);
+                    if (!geometry) return;
+                    allConnections.push(geometry);
+
+                    if (connection.structural) {
+                        structural.push(geometry);
+                    } else {
+                        localByLayer[connection.layerIndex].push(geometry);
+                    }
+                });
+
+                context.save();
+                context.lineCap = 'round';
+
+                if (structural.length > 0) {
+                    context.beginPath();
+                    structural.forEach(appendGeometry);
+                    context.lineWidth = 0.75;
+                    context.strokeStyle = `rgba(${this.config.nodeRgb}, ${
+                        this.config.lineOpacity * this.config.structuralLineFactor * 0.82
+                    })`;
+                    context.stroke();
+                }
+
+                localByLayer.forEach((connections, layerIndex) => {
+                    if (connections.length === 0) return;
+
+                    const layer = this.config.layers[layerIndex];
+                    context.beginPath();
+                    connections.forEach(appendGeometry);
+                    context.lineWidth = this.config.lineWidth;
+                    context.strokeStyle = `rgba(${this.config.nodeRgb}, ${
+                        this.config.lineOpacity * layer.lineOpacityFactor * 0.68
+                    })`;
+                    context.stroke();
+                });
+
+                // Only the small cursor region gets a second pass, keeping the
+                // interactive highlight responsive without redrawing every line.
+                allConnections.forEach(geometry => {
+                    const cursorBoost = this.cursorInfluence(
+                        geometry.midpointX,
+                        geometry.midpointY
+                    );
+                    if (cursorBoost <= 0.04) return;
+
+                    const layer = this.config.layers[geometry.connection.layerIndex];
+                    const layerFactor = geometry.connection.structural
+                        ? this.config.structuralLineFactor
+                        : layer.lineOpacityFactor;
+                    context.beginPath();
+                    appendGeometry(geometry);
+                    context.lineWidth = geometry.connection.structural
+                        ? 0.9
+                        : this.config.lineWidth + 0.12;
+                    context.strokeStyle = `rgba(${this.config.nodeRgb}, ${
+                        this.config.lineOpacity * layerFactor * cursorBoost * 0.62
+                    })`;
+                    context.stroke();
+                });
+
+                structural.forEach(geometry => {
+                    this.drawStructuralSignal(
+                        context,
+                        geometry.connection,
+                        geometry.firstNode,
+                        geometry.secondNode,
+                        geometry.controlX,
+                        geometry.controlY,
                         timestamp
                     );
                 });
@@ -3085,36 +3340,45 @@
             drawNodes() {
                 const context = this.context;
 
-                this.config.layers.forEach(layer => {
-                    context.save();
-                    context.filter = layer.blur > 0 ? `blur(${layer.blur}px)` : 'none';
+                context.save();
+                this.nodes.forEach(node => {
+                    const cursorBoost = this.cursorInfluence(node.x, node.y);
+                    const opacity = this.clamp(
+                        node.opacity + cursorBoost * 0.07,
+                        0,
+                        0.32
+                    );
 
-                    this.nodes.forEach(node => {
-                        if (node.layerId !== layer.id) return;
-
-                        const cursorBoost = this.cursorInfluence(node.x, node.y);
-                        const opacity = this.clamp(
-                            node.opacity + cursorBoost * 0.07,
+                    if (node.isHub || cursorBoost > 0.05) {
+                        const haloOpacity = this.clamp(
+                            node.opacity * 0.2 + cursorBoost * 0.055,
                             0,
-                            0.24
+                            0.12
                         );
-
-                        context.fillStyle = `rgba(${this.config.nodeRgb}, ${opacity})`;
-                        context.shadowColor = `rgba(${this.config.nodeRgb}, ${opacity})`;
-                        context.shadowBlur = layer.glow + cursorBoost * 9;
+                        context.fillStyle = `rgba(${this.config.nodeRgb}, ${haloOpacity})`;
                         context.beginPath();
                         context.arc(
                             node.x,
                             node.y,
-                            node.radius + cursorBoost * 0.3,
+                            node.radius * 2.25 + cursorBoost * 1.8,
                             0,
                             Math.PI * 2
                         );
                         context.fill();
-                    });
+                    }
 
-                    context.restore();
+                    context.fillStyle = `rgba(${this.config.nodeRgb}, ${opacity})`;
+                    context.beginPath();
+                    context.arc(
+                        node.x,
+                        node.y,
+                        node.radius + cursorBoost * 0.25,
+                        0,
+                        Math.PI * 2
+                    );
+                    context.fill();
                 });
+                context.restore();
             }
 
             draw(timestamp, animated) {
@@ -3122,24 +3386,15 @@
                 this.updateCursor(animated);
                 this.updateNodes(timestamp, animated);
 
-                if (
-                    animated &&
-                    timestamp - this.lastTopologyUpdate >= this.config.topologyInterval
-                ) {
-                    this.refreshTopology(timestamp);
-                }
-
-                this.drawAmbientGlows(timestamp);
                 this.drawCursorLight();
                 this.drawConnections(timestamp);
                 this.drawNodes();
             }
         }
 
-        const heroSection = document.getElementById('home');
         const neuralCanvas = document.getElementById('hero-neural-canvas');
-        if (heroSection && neuralCanvas) {
-            new HeroNeuralNetwork(neuralCanvas, heroSection, neuralNetworkConfig).init();
+        if (neuralCanvas) {
+            new HeroNeuralNetwork(neuralCanvas, document.documentElement, neuralNetworkConfig).init();
         }
 
         const navToggle = document.querySelector('.nav-toggle');
@@ -3237,10 +3492,11 @@
                 title: 'Web Scraping Suite',
                 category: 'Data Automation',
                 type: 'Professional Project',
-                objective: 'Automate the collection of product information from major retail websites for structured analysis.',
+                objective: 'Automate the collection of product details from nine major retail websites for structured analysis.',
                 impact: 'Supports competitive research with consistent datasets for pricing trends, availability, ratings, and product popularity.',
                 technologies: ['Python', 'Selenium', 'CSV', 'Databases'],
-                features: ['Multi-site product extraction', 'Price and availability tracking', 'Ratings and review capture', 'Automated browser workflows', 'Structured data storage', 'Retail trend analysis']
+                websites: ['Flannels', 'ASOS', 'H&M', 'IKEA', 'Sephora', 'The Perfume Shop', 'Zara', 'Dunelm', 'JD Sports'],
+                features: ['Product extraction across nine retailers', 'Price and availability tracking', 'Ratings and review capture', 'Automated browser workflows', 'Structured data storage', 'Retail trend analysis']
             },
             ubun: {
                 title: 'Ubun.one',
@@ -3248,17 +3504,62 @@
                 type: 'Professional Project',
                 objective: 'Deliver a multilingual ChatGPT-style platform with voice responses, subscriptions, and administrator controls.',
                 impact: 'Provides a complete conversational AI experience with the operational tools required for a subscription-based SaaS product.',
-                technologies: ['OpenAI API', 'ElevenLabs API', 'FastAPI', 'Stripe'],
+                technologies: ['OpenAI API', 'ElevenLabs API', 'FastAPI', 'Stripe', 'Advanced RAG', 'LiveKit'],
                 features: ['English and German chat', 'ElevenLabs voice responses', 'Prompt and API key management', 'User administration', 'Stripe subscriptions', 'SaaS-ready backend APIs']
             },
-            referu: {
-                title: 'Referu.AI',
-                category: 'AI Automation',
-                type: 'Professional Project',
-                objective: 'Help law firms pre-screen prospective clients, match cases to expertise, and automate consultation scheduling.',
-                impact: 'Reduces administrative workload, improves client-lawyer matching, and makes consultation workflows more efficient.',
-                technologies: ['LangChain', 'OpenAI API', 'Zapier', 'CRM Integrations'],
-                features: ['Conversational client intake', 'Case and expertise matching', 'Automated CRM scheduling', 'MyCase and Clio workflows', 'Recurring task tracking', 'Legal operations automation']
+
+            advancedrag: {
+                title: 'Advanced RAG API',
+                category: 'Document Intelligence & Advanced Retrieval',
+                type: 'Personal Project',
+                objective: 'Build a FastAPI-based RAG system for uploading, chunking, embedding, and retrieving information from documents using production-ready retrieval strategies.',
+                impact: 'Improves retrieval quality and answer reliability by optimizing queries, evaluating evidence, reducing hallucinations, and safely handling weak or oversized context.',
+                technologies: ['Python', 'FastAPI', 'LangChain', 'LangGraph', 'PostgreSQL', 'PGVector'],
+                features: ['Document upload, chunking, embedding, and retrieval', 'Query rewriting, expansion, and multi-query retrieval', 'Metadata-based self-querying', 'Hybrid Search, HyDE, and Reverse HyDE', 'Parent-document retrieval and multi-vector search', 'Reranking for improved result relevance', 'CRAG and Self-RAG evidence evaluation workflows', 'Asynchronous persistence and structured logging', 'Safe fallbacks and bounded context processing', 'Automated API and service tests'],
+                link: 'https://github.com/falsii/RAG',
+                linkLabel: 'View GitHub Repository'
+            },
+            fastapiauth: {
+                title: 'FastAPI Authentication & Subscription Management Backend',
+                category: 'Secure Backend Platform',
+                type: 'Personal Project',
+                objective: 'Develop a scalable RESTful backend with secure authentication, role-based administration, subscription validation, payments, notifications, and dependable background processing.',
+                impact: 'Provides a production-oriented foundation for applications that need strong identity controls, multi-provider subscriptions, operational safeguards, and well-documented APIs.',
+                technologies: ['Python', 'FastAPI', 'PostgreSQL', 'Async SQLAlchemy', 'Redis', 'ARQ', 'Stripe', 'Firebase'],
+                features: ['JWT authentication and refresh tokens', 'Argon2 password hashing and email verification', 'Role-based administrator access', 'Apple App Store and Google Play subscription validation', 'Stripe payments and webhook processing', 'Firebase push notifications', 'Redis-backed rate limiting and token blacklisting', 'ARQ background jobs', 'Structured API responses and centralized error handling', 'Request logging, health monitoring, and Swagger documentation'],
+                link: 'https://github.com/falsii/fastapi-Auth',
+                linkLabel: 'View GitHub Repository'
+            },
+            soulease: {
+                title: 'SoulEase - AI-Generated Mental Wellness App',
+                category: 'Flutter Prototype & AI-First Development',
+                type: 'Personal Project',
+                objective: 'Develop a fully functional cross-platform mental wellness prototype by converting product requirements into Flutter screens, components, workflows, and application logic through prompt engineering.',
+                impact: 'Demonstrates an AI-first software development workflow in which the complete codebase was generated, integrated, validated, debugged, and iteratively refined with OpenAI Codex and Claude Code.',
+                technologies: ['Flutter', 'Dart', 'OpenAI Codex', 'Claude Code', 'Prompt Engineering', 'AI-Assisted Development'],
+                features: ['AI-generated and integrated application codebase', 'Authentication and onboarding workflows', 'Mood tracking and journaling', 'Appointment scheduling', 'Doctor consultation experience', 'Patient management workflows', 'Product requirements translated into working Flutter UI and logic', 'AI-assisted debugging and code integration', 'Iterative prompt refinement and output validation', 'Functional cross-platform prototype']
+            },
+            crewailegalintake: {
+                title: 'crewai-legal-intake',
+                category: 'Multi-Agent Legal Intake Platform',
+                type: 'Personal Project',
+                objective: 'Build an AI-powered legal intake platform that orchestrates specialized agents for client conversations, compliance checks, lawyer discovery, and consultation scheduling.',
+                impact: 'Streamlines legal intake from the first client message through CRM calendar booking while maintaining persistent conversation context, input safety, and reusable multi-agent workflows.',
+                technologies: ['Python', 'FastAPI', 'CrewAI', 'SQLAlchemy', 'Pydantic', 'Zapier MCP', 'Clio', 'MyCase'],
+                features: ['Multi-agent client intake conversations', 'Automated compliance checks', 'Persistent session and message storage', 'Pydantic schemas and robust input validation', 'Prompt injection safeguards', 'Zapier MCP consultation booking', 'Clio and MyCase CRM calendar integration', 'Reusable crew and task workflows', 'Scalable chat and lawyer lookup routes', 'Health monitoring API'],
+                link: 'https://github.com/falsii/crewai-legal-intake-agent',
+                linkLabel: 'View GitHub Repository'
+            },
+            nlpchatbot: {
+                title: 'NLP-chatbot',
+                category: 'Offline NLP Support Chatbot',
+                type: 'Personal Project',
+                objective: 'Build a fully offline chatbot by training custom intent classifiers from scratch, without pretrained models or external APIs, and expose it through practical backend and demo interfaces.',
+                impact: 'Delivers robust support responses with local inference, layered retrieval and safety logic, persistent feedback collection, and measurable model comparisons for accuracy tuning.',
+                technologies: ['Python', 'PyTorch', 'FastAPI', 'Streamlit', 'SQLite', 'TF-IDF', 'LSTM', 'Bag of Words'],
+                features: ['Custom intent classifiers trained from scratch', 'Offline inference without external APIs', 'NLP preprocessing pipeline', 'Intent classification', 'TF-IDF FAQ retrieval', 'Rule-based safety handling', 'FastAPI backend', 'Streamlit demonstration UI', 'SQLite conversation logging and feedback collection', 'Evaluation scripts and bag-of-words versus LSTM comparison'],
+                link: 'https://github.com/falsii/NLP-chatbot',
+                linkLabel: 'View GitHub Repository'
             },
             disease: {
                 title: 'Multiple Disease Detection',
@@ -3297,6 +3598,8 @@
         const modalObjective = document.getElementById('project-modal-objective');
         const modalImpact = document.getElementById('project-modal-impact');
         const modalTechnologies = document.getElementById('project-modal-technologies');
+        const modalWebsitesSection = document.getElementById('project-modal-websites-section');
+        const modalWebsites = document.getElementById('project-modal-websites');
         const modalFeatures = document.getElementById('project-modal-features');
         const modalLink = document.getElementById('project-modal-link');
         let activeProjectTrigger = null;
@@ -3319,13 +3622,17 @@
             modalObjective.textContent = `Objective: ${project.objective}`;
             modalImpact.textContent = `Impact: ${project.impact}`;
             populateItems(modalTechnologies, project.technologies, 'span');
+            modalWebsitesSection.hidden = !project.websites?.length;
+            populateItems(modalWebsites, project.websites || [], 'span');
             populateItems(modalFeatures, project.features, 'li');
 
             modalLink.hidden = !project.link;
             if (project.link) {
                 modalLink.href = project.link;
+                modalLink.textContent = (project.linkLabel || 'Open Live Demo') + ' \u2197';
             } else {
                 modalLink.removeAttribute('href');
+                modalLink.textContent = '';
             }
 
             projectModal.hidden = false;
