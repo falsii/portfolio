@@ -481,7 +481,8 @@
             margin-top: 1rem;
         }
         .project-tech-list span,
-        .modal-tech-list span {
+        .modal-tech-list span,
+        .modal-website-list span {
             padding: 0.32rem 0.55rem;
             border: 1px solid rgba(75, 85, 99, 0.68);
             border-radius: 0.42rem;
@@ -640,10 +641,16 @@
         .modal-section p + p {
             margin-top: 0.75rem;
         }
-        .modal-tech-list {
+        .modal-tech-list,
+        .modal-website-list {
             display: flex;
             flex-wrap: wrap;
             gap: 0.45rem;
+        }
+        .modal-website-list span {
+            border-color: rgba(34, 211, 238, 0.28);
+            background: rgba(8, 145, 178, 0.12);
+            color: #cffafe;
         }
         .modal-feature-grid {
             display: grid;
@@ -1814,7 +1821,7 @@
             <div class="project-group">
                 <div class="project-group-heading">
                     <h3>Personal Projects</h3>
-                    <span>4</span>
+                    <span>5</span>
                 </div>
                 <div class="project-grid">
                     <article class="portfolio-project-card">
@@ -1884,6 +1891,24 @@
                             <div class="project-card-actions">
                                 <a class="project-repository-link" href="https://github.com/falsii/crewai-legal-intake-agent" target="_blank" rel="noopener noreferrer" aria-label="View crewai-legal-intake on GitHub">GitHub &#8599;</a>
                                 <button class="project-details-button" type="button" data-project="crewailegalintake">Details</button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="portfolio-project-card">
+                        <div class="project-card-top">
+                            <span class="project-code-icon" aria-hidden="true">&lt;/&gt;</span>
+                            <span class="project-category">Offline NLP</span>
+                        </div>
+                        <h4>NLP-chatbot</h4>
+                        <p class="project-card-description">An offline support chatbot with custom PyTorch intent classifiers, TF-IDF retrieval, safety handling, and model evaluation.</p>
+                        <div class="project-tech-list">
+                            <span>Python</span><span>PyTorch</span><span>FastAPI</span><span>Streamlit</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-type">Personal</span>
+                            <div class="project-card-actions">
+                                <a class="project-repository-link" href="https://github.com/falsii/NLP-chatbot" target="_blank" rel="noopener noreferrer" aria-label="View NLP-chatbot on GitHub">GitHub &#8599;</a>
+                                <button class="project-details-button" type="button" data-project="nlpchatbot">Details</button>
                             </div>
                         </div>
                     </article>
@@ -1966,6 +1991,10 @@
                 <div class="modal-section">
                     <h4>Technologies</h4>
                     <div class="modal-tech-list" id="project-modal-technologies"></div>
+                </div>
+                <div class="modal-section" id="project-modal-websites-section" hidden>
+                    <h4>Websites Scraped</h4>
+                    <div class="modal-website-list" id="project-modal-websites"></div>
                 </div>
                 <div class="modal-section">
                     <h4>Key Features</h4>
@@ -3455,10 +3484,11 @@
                 title: 'Web Scraping Suite',
                 category: 'Data Automation',
                 type: 'Professional Project',
-                objective: 'Automate the collection of product information from major retail websites for structured analysis.',
+                objective: 'Automate the collection of product details from nine major retail websites for structured analysis.',
                 impact: 'Supports competitive research with consistent datasets for pricing trends, availability, ratings, and product popularity.',
                 technologies: ['Python', 'Selenium', 'CSV', 'Databases'],
-                features: ['Multi-site product extraction', 'Price and availability tracking', 'Ratings and review capture', 'Automated browser workflows', 'Structured data storage', 'Retail trend analysis']
+                websites: ['Flannels', 'ASOS', 'H&M', 'IKEA', 'Sephora', 'The Perfume Shop', 'Zara', 'Dunelm', 'JD Sports'],
+                features: ['Product extraction across nine retailers', 'Price and availability tracking', 'Ratings and review capture', 'Automated browser workflows', 'Structured data storage', 'Retail trend analysis']
             },
             ubun: {
                 title: 'Ubun.one',
@@ -3512,6 +3542,17 @@
                 link: 'https://github.com/falsii/crewai-legal-intake-agent',
                 linkLabel: 'View GitHub Repository'
             },
+            nlpchatbot: {
+                title: 'NLP-chatbot',
+                category: 'Offline NLP Support Chatbot',
+                type: 'Personal Project',
+                objective: 'Build a fully offline chatbot by training custom intent classifiers from scratch, without pretrained models or external APIs, and expose it through practical backend and demo interfaces.',
+                impact: 'Delivers robust support responses with local inference, layered retrieval and safety logic, persistent feedback collection, and measurable model comparisons for accuracy tuning.',
+                technologies: ['Python', 'PyTorch', 'FastAPI', 'Streamlit', 'SQLite', 'TF-IDF', 'LSTM', 'Bag of Words'],
+                features: ['Custom intent classifiers trained from scratch', 'Offline inference without external APIs', 'NLP preprocessing pipeline', 'Intent classification', 'TF-IDF FAQ retrieval', 'Rule-based safety handling', 'FastAPI backend', 'Streamlit demonstration UI', 'SQLite conversation logging and feedback collection', 'Evaluation scripts and bag-of-words versus LSTM comparison'],
+                link: 'https://github.com/falsii/NLP-chatbot',
+                linkLabel: 'View GitHub Repository'
+            },
             disease: {
                 title: 'Multiple Disease Detection',
                 category: 'ML Application',
@@ -3549,6 +3590,8 @@
         const modalObjective = document.getElementById('project-modal-objective');
         const modalImpact = document.getElementById('project-modal-impact');
         const modalTechnologies = document.getElementById('project-modal-technologies');
+        const modalWebsitesSection = document.getElementById('project-modal-websites-section');
+        const modalWebsites = document.getElementById('project-modal-websites');
         const modalFeatures = document.getElementById('project-modal-features');
         const modalLink = document.getElementById('project-modal-link');
         let activeProjectTrigger = null;
@@ -3571,6 +3614,8 @@
             modalObjective.textContent = `Objective: ${project.objective}`;
             modalImpact.textContent = `Impact: ${project.impact}`;
             populateItems(modalTechnologies, project.technologies, 'span');
+            modalWebsitesSection.hidden = !project.websites?.length;
+            populateItems(modalWebsites, project.websites || [], 'span');
             populateItems(modalFeatures, project.features, 'li');
 
             modalLink.hidden = !project.link;
